@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "mesin_kata.h"
+#include "boolean.h"
 
 boolean EndKata;
 Kata CKata;
