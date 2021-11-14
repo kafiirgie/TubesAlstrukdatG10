@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "boolean.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "time.h": "c"
     }
 }
