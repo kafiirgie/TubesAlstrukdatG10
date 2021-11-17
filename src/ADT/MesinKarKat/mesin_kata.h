@@ -8,7 +8,7 @@
 #include "mesin_kar.h"
 
 #define NMax 50
-#define BLANK '\n'
+#define BLANK ' '
 
 typedef struct {
   char TabKata[NMax+1]; /* container penyimpan kata, indeks yang dipakai [1..NMax] */

@@ -10,6 +10,8 @@ typedef struct teleporter {
 
 extern teleporters *teleportPlaces;
 
+extern int maxRole;
+
 void allocateMapLenght(int lenght);
 /* 
 I.S. 
@@ -41,4 +43,6 @@ void freeTeleportPlaces(void);
 /* I.S. 
 Free Map 
 */
+
+void loadConfig(void);
 #endif
