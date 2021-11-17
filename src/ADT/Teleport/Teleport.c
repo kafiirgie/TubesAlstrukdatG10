@@ -4,43 +4,38 @@
 #include <stdlib.h>
 #include "Teleport.h"
 
-void CreateEmptyTabTP(TabTP *TP){
-    TabInt In, Out;
-    MakeEmpty(&In);
-    MakeEmpty(&Out);
-    *(*TP).in = In;
-    *(*TP).out = Out;
+void CreateEmptyPetakTP(PetakTP *TP){
+    (*TP).Neff = 0;
 }
 
-void SetElTP(TabTP *TP, IdxType i, ElType In, ElType Out){
-    (*(*TP).in).TI[i] = In;
-    (*(*TP).out).TI[i] = Out;
+void SetElTP(PetakTP *TP, IdxType i, ElType In, ElType Out){
+    (*TP).in[i] = In;
+    (*TP).out[i] = Out;
 }
 
-void SetNeffTP(TabTP *TP, IdxType N){
-    (*(*TP).in).Neff = N;
-    (*(*TP).out).Neff = N;
+void SetNeffTP(PetakTP *TP, IdxType N){
+    (*TP).Neff = N;
 }
 
-int getPetakOut(TabTP TP, ElType In){
+int getPetakOut(PetakTP TP, ElType In){
     int idx = 1;
-    while ((*TP.in).TI[idx] != In){
+    while ((TP).in[idx] != In){
         idx++;
     }
-    return (*TP.out).TI[idx];
+    return (TP).out[idx];
 }
 
-boolean Search(TabTP TP, int n){
+boolean Search(PetakTP TP, ElType n){
     boolean found = false;
-    for (int i=1; i<=(*TP.in).Neff; i++){
-        if ((*TP.in).TI[i] == n){
+    for (int i=1; i<=(TP).Neff; i++){
+        if ((TP).in[i] == n){
             found = true;
         }
     }
     return found;
 }
 
-void inspect(Map M, TabTP TP, int X){
+void inspect(Map M, PetakTP TP, int X){
     if (Search(TP, X)){
         printf("Petak %d memiliki teleporter menuju %d.\n", X, getPetakOut(TP, X));    
     }else if(M.TI[X] == '#'){
@@ -50,7 +45,7 @@ void inspect(Map M, TabTP TP, int X){
     }
 }
 
-void teleport(Map *M, TabTP TP, int X){
+void teleport(Map *M, PetakTP TP, int X){
     SetElMap(&*M, X, '.');
     SetElMap(&*M, getPetakOut(TP, X), '*');
 }

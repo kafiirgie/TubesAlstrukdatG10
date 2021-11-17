@@ -4,33 +4,41 @@
 #define teleport_H
 
 #include "boolean.h"
-#include "array.h"
 #include "Map.h"
 
-typedef struct 
+typedef int IdxType;
+typedef int ElType;
+
+typedef struct
 {
-	TabInt in [198]; /* memori tempat penyimpan elemen (container) */
-    TabInt out [198];
-} TabTP;
-/* TabTP adalah tabel yang menyimpan indeks teleporter dan tempat teleporter menuju */
-/* in tempat/indeks masuk teleporter dan out tempat/indeks keluar dari teleporter */
+    ElType in [198];
+    ElType out [198];
+    IdxType Neff;
+} PetakTP;
+/* PetakTP adalah tabel yang menyimpan petak teleporter dan petak teleporter menuju */
+/* in adalah petak masuk teleporter dan out adalah petak keluar dari teleporter */
 
-void CreateEmptyTabTP(TabTP *TP);
+/* Selektror */
+#define In(TP) TP.in (TP)->in
+#define Out(TP) (TP)->out
+#define Neff(TP) (TP)->Neff
 
-void SetElTP(TabTP *TP, IdxType i, ElType In, ElType Out);
+void CreateEmptyPetakTP(PetakTP *TP);
 
-void SetNeffTP(TabTP *TP, IdxType N);
+void SetElTP(PetakTP *TP, IdxType i, ElType In, ElType Out);
 
-int getPetakOut(TabTP TP, ElType in);
+void SetNeffTP(PetakTP *TP, IdxType N);
+
+int getPetakOut(PetakTP TP, ElType in);
 /* mengeluarkan tempat keluar teleporter dari petak tempat masuk teleporter */
 
-boolean Search(TabTP TP, int n);
+boolean Search(PetakTP TP, int n);
 /* True jika n adalah petak teleporter */
 
-void inspect(Map M, TabTP TP, int X);
+void inspect(Map M, PetakTP TP, int X);
 /* Inspect suatu petak X */
 
-void teleport(Map *M, TabTP TP, int X);
+void teleport(Map *M, PetakTP TP, int X);
 /* Teleport dari petak X */
 
 #endif
