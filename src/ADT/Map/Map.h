@@ -17,7 +17,7 @@ typedef int IdxType;
 typedef struct 
 {
 	char TI [IdxMax-IdxMin+1]; /* memori tempat penyimpan elemen (container) */
-	int Neff; /* banyaknya elemen efektif */
+	IdxType Neff; /* banyaknya elemen efektif */
 } Map;
 // Banyak isi Map N, 2 <= N <= 200. Dibuat IdxMax = 200 //
 
