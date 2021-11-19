@@ -1,13 +1,20 @@
 #include "stdio.h"
 #include "View/Game/Game.h"
 #include "View/Menu/Menu.h"
+#include "View/Exit/Exit.h"
+
+void initial();
 
 int main(int argc, char **argv) {
-    while (1==1) {
-        MenuView();
-        if (selection == 0) break;
-        GameView(selection);
-    }
-    printf("Thank you for playing\n");
+    initial();
+    exitView();
     return 0;
+}
+
+void initial() {
+    MenuView();
+    if (selection != 0 ){
+        GameView(selection);
+        initial();
+    }
 }

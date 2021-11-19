@@ -15,6 +15,8 @@ void GameView(int opsi) {
     }
     setConfigFile();
     loadConfig();
+    displayGameRule();
+    // click enter to continue type of shit
     printf("\n Let's Start The Game!\n");
     displayMap();
     StartGame();
@@ -30,7 +32,8 @@ void NewGame() {
     printf("How many are playing today (minimum 2, max 4) ? : ");
     scanf("%d", &playersPlaying);
     //Setup how many players are playing
-    if (playersPlaying < 1 || playersPlaying > 4) {
+    if (playersPlaying < 2 || playersPlaying > 4) {
+        printf("Looks like you put the wrong number, re-starting the game... \n");
         NewGame();
     } else {
         for (int i = 0; i < playersPlaying; i++) {
@@ -47,6 +50,10 @@ void LoadGame() {
 
 }
 
+void displayGameRule() {
+
+}
+
 // The Game
 void StartGame() {
     boolean exitGame = false;
@@ -55,7 +62,7 @@ void StartGame() {
     //while (!isEndGame) {
         printf("Round %d\n",round);
         for (int i = 0; i < playersPlaying; i++) {
-
+            printf("It's %s turn! \n",players[i].name);
         }
         round++;
     //}

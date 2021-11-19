@@ -24,13 +24,15 @@ void START(int type) {
        if (type == 1) {
               pita = fopen(fileName,"r");
               //error handler, to be continue
-              if (pita == NULL) {
-                     printf("Found null");
-                     return;
-              }
        } else {
               pita = stdin;
               //printf("Your name : ")
+       }
+
+       if( pita == NULL ) {
+              fprintf(stderr, "Couldn't open %s\n", fileName);
+              fprintf(stderr, "Please enter the correct file name, restart program in order to start\n");
+              exit(1);
        }
        //printf("start");
 	ADV();

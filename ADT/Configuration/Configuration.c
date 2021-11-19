@@ -1,5 +1,4 @@
 #include "Configuration.h"
-#include <unistd.h>
 
 int mapLenght = 0;
 int maxDiceRole = 0;
@@ -15,19 +14,18 @@ void setMap(Kata mapConfig) {
     }
 }
 void setConfigFile(){
+    printf("Remember to add .txt in the end, user! \n");
     printf("Configuration file name : ");
     scanf("%s", fileName);
     printf("\nLoading configuration...\n");
 }
 void loadConfig() {
-    int flag = 0;
+    //int flag = 0;
     STARTKATA(1);
 
     int line = 1;
     int index = 0;
     while (!EndKata) {
-        // printf("line %d  : \n",line);
-        // printKata(CKata);
         if (line == 1) {
             setMapLenght(atoi(CKata.TabKata));
         } 

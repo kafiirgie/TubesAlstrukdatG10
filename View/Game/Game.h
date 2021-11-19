@@ -31,5 +31,7 @@ void displayMap();
 void rankPlayers(player *players[4]);
 // display player rank
 void displayRank();
+// display game rule
+void displayGameRule();
 
 #endif /* GAME_h */ 
