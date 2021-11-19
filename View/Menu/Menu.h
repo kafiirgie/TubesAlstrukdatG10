@@ -1,12 +1,11 @@
+#ifndef MENU_h
+#define MENU_h
 
-#ifndef GAME_MENU_H
-#define GAME_MENU_H
+#include <stdio.h>
 
+extern int selection;
 
-int playerSelection();
-/* 
-return player menu selection
-
-*/
+void MenuView();
+void setSelection(int value);
 
 #endif
