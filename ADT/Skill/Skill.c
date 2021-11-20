@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "skill.h"
+#include "Skill.h"
 
 int TabSkill[100];
 
@@ -85,30 +85,32 @@ void PrintSkill(Skill LS) {
         P = First(LS);
         do {
             switch (Info(P)) {
-            case 1:
-                printf("%d. %s\n", Num, Skill1);
-                break;
-            case 2:
-                printf("%d. %s\n", Num, Skill2);
-                break;
-            case 3:
-                printf("%d. %s\n", Num, Skill3);
-                break;
-            case 4:
-                printf("%d. %s\n", Num, Skill4);
-                break;
-            case 5:
-                printf("%d. %s\n", Num, Skill5);
-                break;
-            case 6:
-                printf("%d. %s\n", Num, Skill6);
-                break;
-            case 7:
-                printf("%d. %s\n", Num, Skill7);
-                break;
-            case 8:
-                printf("%d. %s\n", Num, Skill8);
-                break;
+                case 1:
+                    printf("%d. %s\n", Num, Skill1);
+                    break;
+                case 2:
+                    printf("%d. %s\n", Num, Skill2);
+                    break;
+                case 3:
+                    printf("%d. %s\n", Num, Skill3);
+                    break;
+                case 4:
+                    printf("%d. %s\n", Num, Skill4);
+                    break;
+                case 5:
+                    printf("%d. %s\n", Num, Skill5);
+                    break;
+                case 6:
+                    printf("%d. %s\n", Num, Skill6);
+                    break;
+                case 7:
+                    printf("%d. %s\n", Num, Skill7);
+                    break;
+                case 8:
+                    printf("%d. %s\n", Num, Skill8);
+                    break;
+                default:
+                    break;
             }
             P = Next(P);
             Num++;

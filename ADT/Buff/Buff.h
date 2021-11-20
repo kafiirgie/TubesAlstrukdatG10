@@ -17,4 +17,10 @@ void CreateEmptyBuff (Buff *LB);
 
 int CountBuff(Buff LB);
 
+void InsertBuff(Buff *LB, infotype X);
+
+void DeleteBuff(Buff *LB, infotype X);
+
+void PrintBuff(Buff LB);
+
 #endif
