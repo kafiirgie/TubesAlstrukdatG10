@@ -3,110 +3,169 @@
 #include <time.h>
 #include "skill.h"
 
-void CreateTabSkill(TabSkill *TS) {
-    /* KAMUS LOKAL */
+int TabSkill[100];
+
+void CreateTabSkill() {
     int i;
-    /* ALGORITMA */
     /* Skill 1 - Pintu Ga Ke Mana Mana - 10% */
     for (i = 0; i < 10; i++) {
-        TI(*TS)[i] = 1;
+        TabSkill[i] = 1;
     }
     /* Skill 2 - Mesin Waktu - 10% */
     for (i = 10; i < 20; i++) {
-        TI(*TS)[i] = 2;
+        TabSkill[i] = 2;
     }
     /* Skill 3 - Baling Baling Jambu - 10% */
     for (i = 20; i < 30; i++) {
-        TI(*TS)[i] = 3;
+        TabSkill[i] = 3;
     }
     /* Skill 4 - Cermin Pengganda - 6% */
     for (i = 30; i < 36; i++) {
-        TI(*TS)[i] = 4;
+        TabSkill[i] = 4;
     }
     /* Skill 5 - Senter Pembesar Hoki - 15% */
     for (i = 36; i < 51; i++) {
-        TI(*TS)[i] = 5;
+        TabSkill[i] = 5;
     }
     /* Skill 6 - Senter Pengecil Hoki - 15% */
     for (i = 51; i < 66; i++) {
-        TI(*TS)[i] = 6;
+        TabSkill[i] = 6;
     }
     /* Skill 7 - Mesin Penukar Posisi - 4% */
     for (i = 66; i < 70; i++) {
-        TI(*TS)[i] = 7;
+        TabSkill[i] = 7;
     }
     /* Skill 8 - Teknologi Gagal - 30% */
     for (i = 70; i < 100; i++) {
-        TI(*TS)[i] = 8;
+        TabSkill[i] = 8;
     }
 }
 
-void CreateEmptySkill(List *L) {
-    CreateEmpty(L);
+void CreateEmptySkill(Skill *LS) {
+    CreateEmpty(LS);
 }
 
-int CountSkill(List L) {
-    return NbElmt(L);
+int CountSkill(Skill LS) {
+    return NbElmt(LS);
 }
 
-int RandomSkill(List L, TabSkill TS) {
-    /* KAMUS LOKAL */
+int RandomSkill() {
     time_t t;
     int x;
-    /* ALGORTIMA */
+    
+    CreateTabSkill();
     srand((unsigned) time (&t));
     x = rand() % 100;
-    return TI(TS)[x];
+    return TabSkill[x];
 }
 
-void InsertSkill(List *L, infotype X) {
-    InsVFirst(L, X);
+void InsertSkill(Skill *LS, infotype X) {
+    InsVFirst(LS, X);
 }
 
-void DeleteSkill(List *L, infotype X) {
-    DelP(L, X);
+void DeleteSkill(Skill *LS, int Num) {
+    int X;
+    int i = 1;
+    address P = First(*LS);
+
+    while (i < Num) {
+        P = Next(P);
+        i++;
+    }
+    X = Info(P);
+    DelP(LS, X);
 }
 
-void PrintSkill(List LSkill) {
-    /* KAMUS */
+void PrintSkill(Skill LS) {
     address P;
-    /* ALGORITMA */
-    if (IsEmpty(LSkill)) {
+    int Num = 1;
+    if (IsEmpty(LS)) {
         printf("Pemain tidak memiliki skill\n");
     } else {
-        P = First(LSkill);
+        P = First(LS);
         do {
             switch (Info(P)) {
             case 1:
-                printf("1 - Pintu Ga Ke Mana Mana\n");
+                printf("%d. %s\n", Num, Skill1);
                 break;
             case 2:
-                printf("2 - Mesin Waktu\n");
+                printf("%d. %s\n", Num, Skill2);
                 break;
             case 3:
-                printf("3 - Baling Baling Jambu\n");
+                printf("%d. %s\n", Num, Skill3);
                 break;
             case 4:
-                printf("4 - Cermin Pengganda\n");
+                printf("%d. %s\n", Num, Skill4);
                 break;
             case 5:
-                printf("5 - Senter Pembesar Hoki\n");
+                printf("%d. %s\n", Num, Skill5);
                 break;
             case 6:
-                printf("6 - Senter Pengecil Hoki\n");
+                printf("%d. %s\n", Num, Skill6);
                 break;
             case 7:
-                printf("7 - Mesin Penukar Posisi\n");
+                printf("%d. %s\n", Num, Skill7);
                 break;
             case 8:
-                printf("8 - Teknologi Gagal\n");
+                printf("%d. %s\n", Num, Skill8);
                 break;
             }
             P = Next(P);
+            Num++;
         } while (P != Nil);
     }
 }
 
-void RunSkill(List L, infotype X) {
-    
+void RunSkill(Skill LS, int Num) {
+    int X;
+    int i = 1;
+    address P = First(LS);
+    // get id skill (x)
+    while (i < Num) {
+        P = Next(P);
+        i++;
+    }
+    X = Info(P);
+    // run skill
+    switch (X) {
+        case 1:
+            RunSkill1();
+            break;
+        case 2:
+            RunSkill2();
+            break;
+        case 3:
+            RunSkill3();
+            break;
+        case 4:
+            RunSkill4();
+            break;
+        case 5:
+            RunSkill5();
+            break;
+        case 6:
+            RunSkill6();
+            break;
+        case 7:
+            RunSkill7();
+            break;
+        case 8:
+            RunSkill8();
+            break;
+        default:
+            break;
+    }
+    // delete skill
+    DeleteSkill(&LS, Num);
+    // update buff
+    // {code here}
 }
+
+void RunSkill1() {}
+void RunSkill2() {}
+void RunSkill3() {}
+void RunSkill4() {}
+void RunSkill5() {}
+void RunSkill6() {}
+void RunSkill7() {}
+void RunSkill8() {}

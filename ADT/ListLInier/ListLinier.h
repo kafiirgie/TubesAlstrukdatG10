@@ -1,5 +1,5 @@
-#ifndef listlinier_H
-#define listlinier_H
+#ifndef ListLinier_H
+#define ListLinier_H
 
 #include "../boolean.h"
 

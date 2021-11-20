@@ -1,33 +1,54 @@
-#ifndef skill_H
-#define skill_H
+#ifndef Skill_H
+#define Skill_H
 
 #include "../boolean.h"
 #include "../ListLInier/ListLinier.h"
 
-typedef struct {
-	int TI [100];
-} TabSkill;
 
+extern int TabSkill[100];
 
+typedef List Skill;
 
-#define TI(Tab) (Tab).TI
+#define Skill1 "Pintu Ga Ke Mana Mana"
+#define Skill2 "Mesin Waktu"
+#define Skill3 "Baling Baling Jambu"
+#define Skill4 "Cermin Pengganda"
+#define Skill5 "Senter Pembesar Hoki"
+#define Skill6 "Senter Pengecil Hoki"
+#define Skill7 "Mesin Penukar Posisi"
+#define Skill8 "Teknologi Gagal"
 
+void CreateTabSkill();
 
-void CreateTabSkill(TabSkill *TS);
+void CreateEmptySkill (Skill *LS);
 
-void CreateEmptySkill (List *L);
+int CountSkill(Skill LS);
 
-int CountSkill(List L);
+int RandomSkill();
 
-int RandomSkill(List L, TabSkill TS);
+void InsertSkill (Skill *LS, infotype X);
 
-void InsertSkill (List *L, infotype X);
+void DeleteSkill (Skill *LS, int Num);
 
-void DeleteSkill (List *L, infotype X);
+void PrintSkill (Skill LS);
 
-void PrintSkill (List LSkill);
+void RunSkill(Skill LS, int Num);
 
-void RunSkill(List L, infotype X);
+void RunSkill1();
+
+void RunSkill2();
+
+void RunSkill3();
+
+void RunSkill4();
+
+void RunSkill5();
+
+void RunSkill6();
+
+void RunSkill7();
+
+void RunSkill8();
 
 
 #endif

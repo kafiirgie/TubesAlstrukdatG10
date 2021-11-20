@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "listlinier.h"
+#include "ListLinier.h"
 
 /****************** TEST LIST KOSONG ******************/
 boolean IsEmpty (List L) {
@@ -188,7 +188,7 @@ void DelP (List *L, infotype X) {
     P = First(*L);
     Prec = Nil;
     found = 0;
-    while ( (P != Nil) && (!found) ) {
+    while ((P != Nil) && (!found)) {
         if (Info(P) == X) {
             found = 1;
         } else {

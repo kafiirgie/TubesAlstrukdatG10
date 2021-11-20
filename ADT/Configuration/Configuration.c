@@ -1,6 +1,6 @@
 #include "Configuration.h"
 
-int mapLenght = 0;
+int mapLength = 0;
 int maxDiceRole = 0;
 char map[255];
 
@@ -27,7 +27,7 @@ void loadConfig() {
     int index = 0;
     while (!EndKata) {
         if (line == 1) {
-            setMapLenght(atoi(CKata.TabKata));
+            setMapLength(atoi(CKata.TabKata));
         } 
         else if (line == 2) {
             setMap(CKata);
@@ -36,11 +36,11 @@ void loadConfig() {
             setMaxDiceRole(atoi(CKata.TabKata));
         }
         else if( line == 4) {
-            allocateTeleportersLenght(atoi(CKata.TabKata));
+            allocateTeleportersLength(atoi(CKata.TabKata));
         } else {
             int start = converter(CKata.TabKata[0]);
             int end = converter(CKata.TabKata[2]);
-            setTeleporter(index,start,end);
+            setTeleporter(index, start, end);
             index ++;
         }
         line++;
@@ -49,17 +49,17 @@ void loadConfig() {
     printf("Configuration has been loaded successfully\n");
 }
 
-void setMapLenght(int lenght) {
-    mapLenght = lenght;
+void setMapLength(int length) {
+    mapLength = length;
 }
-void allocateTeleportersLenght(int lenght){
-    teleporters = calloc(lenght, sizeof(teleport));
+void allocateTeleportersLength(int length){
+    teleporters = calloc(length, sizeof(teleport));
 }
 void freeTeleporters(){
     free(teleporters);
 }
 
-void setTeleporter(int index,int start,int end) {
+void setTeleporter(int index, int start, int end) {
     teleport temp;
     temp.startPoint = start;
     temp.endPoint = end;

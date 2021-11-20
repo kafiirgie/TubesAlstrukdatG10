@@ -4,6 +4,8 @@
         "mesin_kar.h": "c",
         "game.h": "c",
         "configuration.h": "c",
-        "mesin_kata.h": "c"
+        "mesin_kata.h": "c",
+        "listlinier.h": "c",
+        "algorithm": "c"
     }
 }

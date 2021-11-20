@@ -3,8 +3,8 @@
 int main() {
     sscanf("config.txt","%s",fileName);
     loadConfig();
-    if (mapLenght != 20) {
-        printf("Map lenght not set \n");
+    if (mapLength != 20) {
+        printf("Map length not set \n");
         return -1;
     }
     // map test
