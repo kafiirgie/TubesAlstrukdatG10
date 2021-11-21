@@ -12,8 +12,8 @@ typedef struct player {
 }players;
 
 
-extern int playing = 0;
-extern players playersData[4];
+int playing = 0;
+players playersData[4];
 
 //Initalization of player
 void setupPlayer();
@@ -29,4 +29,6 @@ void playerMove(players *thePlayer,int move);
 where can be obtain from the teleporter data type inside OpenConf.h
 */
 void playerTeleport(players *thePlayer,int where);
+
+void getPlayerRank();
 #endif

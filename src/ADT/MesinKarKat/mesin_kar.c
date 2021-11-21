@@ -18,7 +18,14 @@ void START() {
           Jika CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-    pita = stdin;
+    printf("DONT FORGET TO ADD '.' AT THE END OF THE LINE!\n");
+    printf("Example : config.txt\n");
+    printf("Configuration file name : \n");
+    char configName[255];
+    scanf("%s",configName);
+    FILE * fp;
+    fp = fopen (configName, "r");
+    pita = fp;
     ADV();
 }
 

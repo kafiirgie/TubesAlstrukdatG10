@@ -1,22 +1,21 @@
-#ifndef OpenConf_H
-#define OpenConf_H
+#ifndef OPENCONF_H
+#define OPENCONF_H
 
-extern char map;
+#include <stdlib.h>
+#include <stdio.h>
+
+char map[100];
 
 typedef struct teleporter {
     int start;
     int end;
 }teleporters;
 
-extern teleporters *teleportPlaces;
+teleporters *teleportPlaces;
 
-extern int maxRole;
+int maxRole;
+int mapLenght;
 
-void allocateMapLenght(int lenght);
-/* 
-I.S. 
-Karena dia array dynamic, pas assign jgn lupa 
-*/
 void assignMap(void);
 /*  
 I.S. 
@@ -34,10 +33,6 @@ I.S.
 Assign si teleporters ke dalam variable map, SETELAH KITA allocate lenghtnya
 */
 
-void freeMap(void);
-/* I.S. 
-Free Map 
-*/
 
 void freeTeleportPlaces(void);
 /* I.S. 

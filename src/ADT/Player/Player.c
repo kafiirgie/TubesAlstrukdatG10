@@ -17,3 +17,7 @@ void playerMove(players *thePlayer,int move) {
 void playerTeleport(players *thePlayer,int where) {
     thePlayer->currPoint = where;
 }
+
+void getPlayerRank() {
+    
+}
