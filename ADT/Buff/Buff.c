@@ -19,6 +19,19 @@ void DeleteBuff(Buff *LB, infotype X) {
     DelP(LB, X);
 }
 
+void ClearBuff(Buff *LB) {
+    if (Search(*LB, 2)) {
+        DelP(LB, 2);
+    }
+    if (Search(*LB, 3)) {
+        DelP(LB, 3);
+    }
+    if (Search(*LB, 4)) {
+        DelP(LB, 4);
+    }
+       
+}
+
 void PrintBuff(Buff LB) {
     address P;
     int Num = 1;

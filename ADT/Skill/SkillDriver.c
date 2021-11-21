@@ -50,32 +50,32 @@ int main(){
         if (CountSkill(LSkill) == 10) {
             printf("Skill penuh, tidak dapat melakukan random skill\n");
         } else {
-            /* Random Skill */
+            // Random Skill
             printf("Melakukan random skill pemain\n");
             IDSkill = RandomSkill(LSkill);
             printf("Skill yang diperoleh adalah : %d\n", IDSkill);
-            /* Insert Skill */
+            // Insert Skill
             InsertSkill(&LSkill, IDSkill);
         }
-        /* Print Skill */
+        // Print Skill
         printf("Skill pemain saat ini :\n");
         PrintSkill(LSkill);
-        /* Menerima Input dari User */
+        // Get user input
         printf("\nMasukkan input : ");
         scanf("%d", &input);
-        /* Melakukan Operasi Berdasarkan Input */
+        // Do operation based on user input
         if (input > 0) {
             printf("Skill %d berhasil digunakan!!\n", input);
             DeleteSkill(&LSkill, input);
         } else if (input < 0) {
             input *= -1;
-            DeleteSkill(&LSkill, input);
             printf("Skill %d berhasil dibuang\n", input);
+            DeleteSkill(&LSkill, input);
         }
         printf("~ AKHIR RONDE ~\n");
         loading(3);
     } while (input != 0);
-    
+    // End of program
     printf("===== AKHIR PROGRAM =====\n\n");
 
     return 0;
