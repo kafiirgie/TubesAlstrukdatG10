@@ -2,7 +2,7 @@
 #define Skill_H
 
 #include "../boolean.h"
-#include "../ListLInier/ListLinier.h"
+#include "../ListLinier/ListLinier.h"
 
 
 extern int TabSkill[100];

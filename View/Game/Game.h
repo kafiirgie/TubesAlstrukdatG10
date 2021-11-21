@@ -1,10 +1,3 @@
-//
-//  GAME.h
-//  AlstrukDat
-//
-//  Created by Farhandika Zahrir Mufti guenia on 31/08/21.
-//
-
 #ifndef GAME_h
 #define GAME_h
 #include "../../ADT/boolean.h"
@@ -12,7 +5,6 @@
 
 // how many players are playing
 extern int playersPlaying;
-
 // if someone win then isEndGame
 extern boolean isEndGame;
 
@@ -26,12 +18,13 @@ void StartGame();
 
 void ExitGame();
 
-void displayMap();
-// sort player based on their position
-void rankPlayers(player *players[4]);
-// display player rank
-void displayRank();
-// display game rule
-void displayGameRule();
+//void displayMap();
 
-#endif /* GAME_h */ 
+void rankPlayers(Player *players[4]);
+// sort player based on their position
+void displayRank();
+// display player rank
+void displayGameRule();
+// display game rule
+
+#endif 

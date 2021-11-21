@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Skill.h"
+#include "../Buff/Buff.h"
 
 int TabSkill[100];
 
@@ -60,20 +61,31 @@ int RandomSkill() {
 }
 
 void InsertSkill(Skill *LS, infotype X) {
-    InsVFirst(LS, X);
+    if (CountSkill(*LS) >= 10) {
+        printf("Skill penuh, tidak dapat menambahkan skill\n");
+    } else {
+        InsVFirst(LS, X);        
+    }
 }
 
 void DeleteSkill(Skill *LS, int Num) {
-    int X;
-    int i = 1;
-    address P = First(*LS);
-
+    int X, i;
+    address P, Prec, PDel;
+    P = First(*LS);
+    Prec = Nil;
+    i = 1;
     while (i < Num) {
+        Prec = P;
         P = Next(P);
         i++;
     }
-    X = Info(P);
-    DelP(LS, X);
+    if (Prec == Nil) { // X merupakan elemen pertama
+        DelFirst(LS, &PDel);
+        Dealokasi(&PDel);
+    } else {  // X bukan merupkan elemen pertama
+        DelAfter(LS, &PDel, Prec);
+        Dealokasi(&PDel);
+    }
 }
 
 void PrintSkill(Skill LS) {

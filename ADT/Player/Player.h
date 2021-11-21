@@ -1,40 +1,46 @@
-//
-//  Player.h
-//  AlstrukDat
-//
-//  Created by Farhandika Zahrir Mufti guenia on 31/08/21.
-//
-
 #ifndef Player_h
 #define Player_h
 
 #include "../boolean.h"
-#include "../Skill/Skill.h"
 #include "../MesinKarKat/mesin_kata.h"
-
-//Initial position is always 0
+#include "../Configuration/Configuration.h"
+#include "../Skill/Skill.h"
+#include "../Buff/Buff.h"
+#include "../Map/Map.h"
+#include "../Teleport/Teleport.h"
 
 typedef struct {
-    int position;
-    char name[20];
-    //skills
-} player;
+    int Position; //Initial position is always 0
+    char Name[20];
+    Map PMap;
+    Skill PSkill;
+    Buff PBuff;
+} Player;
 
+#define Position(P) (P).Position
+#define Name(P) (P).Name
+#define PMap(P) (P).PMap
+#define PSkill(P) (P).PSkill
+#define PBuff(P) (P).PBuff
 
+void setPlayer(Player *thePlayer);
 // set player properties
-void setPlayer(player *thePlayer);
 
+void setPlayerMap(Player *thePlayer);
+// move '*' in player map
+
+void playerRoleDice(Player *thePlayer, int maxDice);
 // Role dice
-void playerRoleDice(player* thePlayer,int maxDice);
 
+void playerTeleport(Player *thePlayer, int endPoint);
 // teleport
-void playerTeleport(player *thePlayer,int endPoint);
 
+
+////void playerUseSkill(Player *thePlayer);
 // use skill
-void playerUseSkill(player *thePlayer);
 
-void playerOption();
-
+////void playerOption();
 
 
-#endif /* Player_h */
+
+#endif

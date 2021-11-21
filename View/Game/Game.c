@@ -1,11 +1,12 @@
 #include "Game.h"
 #include "../../ADT/Configuration/Configuration.h"
+#include "../../ADT/Player/Player.h"
 #include <stdio.h>
 #include <string.h>
 
 int playersPlaying = 0;
 boolean isEndGame = false;
-player players[4];
+Player players[4];
 
 void GameView(int opsi) {
     if (opsi == 1) { //New Game
@@ -18,7 +19,7 @@ void GameView(int opsi) {
     displayGameRule();
     // click enter to continue type of shit
     printf("\n Let's Start The Game!\n");
-    displayMap();
+    //displayMap();
     StartGame();
     if (isEndGame) {
         displayRank();
@@ -37,7 +38,7 @@ void NewGame() {
         NewGame();
     } else {
         for (int i = 0; i < playersPlaying; i++) {
-            player temp;
+            Player temp;
             printf("Player %d name :",i+1);
             setPlayer(&temp);
             printf("\n");
@@ -62,14 +63,14 @@ void StartGame() {
     //while (!isEndGame) {
         printf("Round %d\n",round);
         for (int i = 0; i < playersPlaying; i++) {
-            printf("It's %s turn! \n",players[i].name);
+            printf("It's %s turn! \n",players[i].Name);
         }
         round++;
     //}
 }
 
 void ExitGame() {
-    freeTeleporters();
+    //freeTeleporters();
     if (isEndGame == 1) {
         //sort user based on position
     } else {
@@ -79,11 +80,11 @@ void ExitGame() {
 
 void displayRank() {
     for (int i = 0; i < playersPlaying; i++) {
-        printf("Rank #%d : %s \n",i+1,players[i].name);
+        printf("Rank #%d : %s \n",i+1,players[i].Name);
     }
 }
 
-void displayMap() {
+/*void displayMap() {
     printf("Game map :\n");
     printf("%s\n",map);
-}
+}*/
