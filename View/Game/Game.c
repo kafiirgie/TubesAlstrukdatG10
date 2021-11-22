@@ -1,11 +1,37 @@
 #include "Game.h"
 #include "../../ADT/Configuration/Configuration.h"
+#include "../../ADT/Progress/Progress.h"
+#include "../../ADT/MesinKarKat/mesin_kata.h"
+#include "../../ADT/Round/Round.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 int playersPlaying = 0;
 boolean isEndGame = false;
-player players[4];
+roundData data;
+
+void delay(int number_of_seconds) {
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+    // Storing start time
+    clock_t start_time = clock();
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds);
+}
+
+void showPlayerCommand() {
+    printf("Your commands : \n");
+    printf("[1] role dice\n"); //roll
+    printf("[2] use skill\n"); //skill
+    printf("[3] show buff\n"); //buff
+    printf("[4] inspect map\n"); //inspect
+    printf("[5] show position\n"); //map
+    printf("[6] undo\n"); //undo
+    printf("[7] end turn\n"); //endturn
+    printf("[0] exit game\n");
+}
 
 void GameView(int opsi) {
     if (opsi == 1) { //New Game
@@ -15,6 +41,7 @@ void GameView(int opsi) {
     }
     setConfigFile();
     loadConfig();
+
     displayGameRule();
     // click enter to continue type of shit
     printf("\n Let's Start The Game!\n");
@@ -34,56 +61,279 @@ void NewGame() {
     //Setup how many players are playing
     if (playersPlaying < 2 || playersPlaying > 4) {
         printf("Looks like you put the wrong number, re-starting the game... \n");
-        NewGame();
+        NewGame(); //got infinite loop!!
     } else {
         for (int i = 0; i < playersPlaying; i++) {
             player temp;
-            printf("Player %d name :",i+1);
+            printf("Player %d name : ",i+1);
             setPlayer(&temp);
             printf("\n");
-            players[i] = temp;
+            data.players[i] = temp;
         }
     }
 }
 
 void LoadGame() {
-
+//     progressName();
+//     loadProgress();
+//     int line = 1;
+//     int idx = 0;
+//     while (!EndKata) {
+//         if (line == 1) {
+//             sscanf(fileName, "%s", CKata.TabKata);
+//         }
+//         else if (line == 2) {
+//             playersPlaying = atoi(CKata.TabKata);
+//         }
+//         else {
+// //WIP
+//         }
+//     }
 }
 
-void displayGameRule() {
-
-}
-
-// The Game
+// THE GAME
 void StartGame() {
     boolean exitGame = false;
     int round = 1;
+    int opsi = -9;
+    // stack rondenya
+    Ronde rounde;
+    //
+    CreateRondeEmpty(&rounde);
+    data.rondeKeberapa = 1;
+    PushRonde(&rounde,data);
+    boolean didRoleDice = false;
     //Loop per ronde
-    //while (!isEndGame) {
+
+    //sistem undo jalan, do not touch
+    while (!isEndGame) {
+        data = CurrRonde(rounde);
         printf("Round %d\n",round);
+        data.rondeKeberapa = round;
         for (int i = 0; i < playersPlaying; i++) {
-            printf("It's %s turn! \n",players[i].name);
+            //clear screen
+            while (!didRoleDice){ 
+                printf("It's %s turn! \n",CurrRonde(rounde).players[i].name);
+                showPlayerCommand();
+                printf("Select your move : ");
+                opsi = playerOption();
+                if (opsi == 1) {
+                    playerRoleDice(&data.players[i],maxDiceRole);
+                    //ifCanTeleport(&data.players[i]); //cant works if skill used
+                    didRoleDice = true;
+                }
+                else if (opsi == 2) {
+                    playerUseSkill(i, playersPlaying);
+                }
+                else if (opsi == 3) {
+                    showPlayerBuff(&data.players[i]);
+                }
+                else if (opsi == 4) {
+                    int point;
+                    printf("Insert map point that you want to inspect : ");
+                    scanf("%d", &point);
+                    inspectMap(point);
+                }
+                else if (opsi == 5) {
+                    showPlayerPosition(data.players[i].position);
+                }
+                else if (opsi == 6) {
+                    if (data.rondeKeberapa == 1){
+                        printf("Undo skill is unavailable \n");
+                    } else {
+                        PopRonde(&rounde,&data);
+                        data = CurrRonde(rounde);
+                    }
+                } else if (opsi == 7) {
+                    // end turn
+                }
+                else if (opsi == 0) {
+                    exitGame = true;
+                    break;
+                }
+            }
+
+            PushRonde(&rounde,data);
+            if (exitGame) { break ;}
+            didRoleDice = false;
+            isEndGame = checkIsEndGame(CurrRonde(rounde).players[i].position);
+            if (isEndGame) break;
         }
+        if (exitGame) { break ;}
         round++;
-    //}
+    }
+    free(rounde.TOP);
 }
 
 void ExitGame() {
     freeTeleporters();
     if (isEndGame == 1) {
         //sort user based on position
+        printf("Congratulation, you've reach the end game!\n");
     } else {
         // Save progress
+        printf("Saving progress.....\n");
     }
+}
+
+void displayGameRule() {
+// display game rule
+}
+
+boolean checkIsEndGame(int position) {
+    return position >= mapLenght;
+}
+
+void rankPlayers(player *players[4]) {
+// sort player based on their position
 }
 
 void displayRank() {
     for (int i = 0; i < playersPlaying; i++) {
-        printf("Rank #%d : %s \n",i+1,players[i].name);
+       // printf("Rank #%d : %s \n",i+1,players[i].name);
     }
+}
+
+void showPlayerPosition(int position) {
+    for (int i = 0; i < mapLenght; i++) {
+        if (i == position) {
+            printf("%c",'*');
+        } else {
+            printf("%c",map[i]);
+        }
+    }
+    printf(" %d \n", position+1);
 }
 
 void displayMap() {
     printf("Game map :\n");
     printf("%s\n",map);
+}
+
+void inspectMap(int point) {
+    point -= 1;
+    if (map[point] == '#') {
+        printf("Player can't move to this point\n");
+    } else if (map[point] == '.') {
+        boolean foundtp = false;
+        for (int i = 0; i < teleportLenght; i++){
+            if (point+1 == teleporters[i].inPoint) {
+                foundtp = true;
+                printf("There is teleporter from : %d to : %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
+            }
+        }
+        if(!foundtp) {
+            printf("There is no teleporter in : %d \n", point+1);
+        }
+    }
+}
+
+void playerUseSkill(int idPlayer, int countPlayersPlaying) {
+    printSkill(data.players[idPlayer].skills);
+    if (!IsEmpty(data.players[idPlayer].skills)) {
+        printf("Insert your input : ");
+        int num = playerOption();
+        if (num > 0) {
+            //get skill id
+            int index = getIdSkill(data.players[idPlayer].skills, num);
+            //use skill
+            switch (index) {
+                case 1: useSkill1(idPlayer); break;
+                case 2: useSkill2(idPlayer); break;
+                case 3: useSkill3(idPlayer); break;
+                case 4: useSkill4(idPlayer); break;
+                case 5: useSkill5(idPlayer); break;
+                case 6: useSkill6(idPlayer); break;
+                case 7: useSkill7(idPlayer, countPlayersPlaying); break;
+                case 8: useSkill8(idPlayer); break;
+                default: break;
+            }
+            //delete skill
+            deleteSkill(&data.players[idPlayer].skills, num);
+            if (data.players[idPlayer].buff[1]) {
+                // Get 2 new skill
+                int temp;
+                temp = getRandomSkill();
+                insertSkill(&data.players[idPlayer].skills, temp);
+                printf("please wait..."); delay(5);
+                temp = getRandomSkill();
+                insertSkill(&data.players[idPlayer].skills, temp);
+            }
+        } else if (num < 0) {
+            //delete skill
+            num *= -1;
+            deleteSkill(&data.players[idPlayer].skills, num);
+            printf("Delete skill has done successfully.\n");
+        } else { //num == 0
+            printf("Player don't use or remove skills.\n");
+        }
+    }
+}
+
+void useSkill1(int idPlayer) {
+    // Set buff player "Imunitas Teleport" into true
+    data.players[idPlayer].buff[0] = true;
+    printf("Congrats, you got new buff!!\n");
+    printf("New buff : Imunitas Teleport\n");
+}
+void useSkill2(int idPlayer) {
+    // UNDER DEVELOPMENT
+}
+void useSkill3(int idPlayer) {
+    // UNDER DEVELOPMENT
+}
+void useSkill4(int idPlayer) {
+    if (countSkill(data.players[idPlayer].skills) <= 9) {
+        // Set buff player "Cermin Pengganda" into true
+        data.players[idPlayer].buff[1] = true;
+        printf("Congrats, you got new buff!!\n");
+        printf("New buff : Cermin Pengganda\n");
+    } else {
+        printf("Sorry, you can't use this skill now, please remove some skills.\n");
+    }
+}
+void useSkill5(int idPlayer) {
+    if (data.players[idPlayer].buff[3]) {
+        printf("Sorry, you can't use this skill now, other buff still active.\n");
+    } else {
+        // Set buff player "Senter Pembesar Hoki" into true
+        data.players[idPlayer].buff[2] = true;
+        printf("Congrats, you got new buff!!\n");
+        printf("New buff : Senter Pembesar Hoki\n");
+    }
+}
+void useSkill6(int idPlayer) {
+    if (data.players[idPlayer].buff[2]) {
+        printf("Sorry, you can't use this skill now, other buff still active.\n");
+    } else {
+        // Set buff player "Senter Pengecil Hoki" into true
+        data.players[idPlayer].buff[3] = true;
+        printf("Congrats, you got new buff!!\n");
+        printf("New buff : Senter Pengecil Hoki\n");
+    }
+}
+void useSkill7(int idPlayer, int countPlayersPlaying) {
+    printf("You can switch your position with other players.\n");
+    printf("Players position :\n");
+    for (int i = 0; i < countPlayersPlaying; i++) {
+        printf("%d. %s : ", i+1, data.players[i].name);
+        showPlayerPosition(data.players[i].position);
+    }
+    
+    printf("Select id Player : ");
+    int idOpponent = playerOption()-1;
+    int tempPosition = data.players[idPlayer].position;
+    data.players[idPlayer].position = data.players[idOpponent].position;
+    data.players[idOpponent].position = tempPosition;
+    
+    printf("\nSwitching position done succesfully\n");
+    printf("Final players position :\n");
+    for (int i = 0; i < countPlayersPlaying; i++) {
+        printf("%d. %s : ", i+1, data.players[i].name);
+        showPlayerPosition(data.players[i].position);
+    }
+}
+void useSkill8(int idPlayer) {
+    printf("!!! This skill was broken !!!\n");
+    printf("You can't use this skill.\n");
 }

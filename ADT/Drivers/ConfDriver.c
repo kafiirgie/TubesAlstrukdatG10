@@ -4,8 +4,8 @@ int main(int argc, char **argv) {
     //test configuration file
     sscanf("testConf.txt","%s",fileName);
         loadConfig();
-    if (mapLength != 20) {
-        printf("Map length not set \n");
+    if (mapLenght != 20) {
+        printf("Map lenght not set \n");
         return -1;
     }
     // map test

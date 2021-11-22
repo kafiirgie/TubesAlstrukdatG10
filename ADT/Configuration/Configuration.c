@@ -1,33 +1,28 @@
 #include "Configuration.h"
 
-int mapLength = 0;
 int maxDiceRole = 0;
 char map[255];
+int mapLenght = 0;
+int teleportLenght = 0;
 
 int converter(char pep){
     return pep - '0';
 }
 
-void setMap(Kata mapConfig) {
-    for (int i = 0; i <= mapConfig.Length; i++){
-        map[i] = mapConfig.TabKata[i];
-    }
-}
 void setConfigFile(){
     printf("Remember to add .txt in the end, user! \n");
     printf("Configuration file name : ");
     scanf("%s", fileName);
     printf("\nLoading configuration...\n");
 }
-void loadConfig() {
-    //int flag = 0;
-    STARTKATA(1);
 
+void loadConfig() {
+    STARTKATA(1);
     int line = 1;
     int index = 0;
     while (!EndKata) {
         if (line == 1) {
-            setMapLength(atoi(CKata.TabKata));
+            setMapLenght(atoi(CKata.TabKata));
         } 
         else if (line == 2) {
             setMap(CKata);
@@ -36,12 +31,29 @@ void loadConfig() {
             setMaxDiceRole(atoi(CKata.TabKata));
         }
         else if( line == 4) {
-            allocateTeleportersLength(atoi(CKata.TabKata));
+            teleportLenght = atoi(CKata.TabKata);
+            allocateTeleportersLenght(teleportLenght);
         } else {
-            int start = converter(CKata.TabKata[0]);
-            int end = converter(CKata.TabKata[2]);
-            setTeleporter(index, start, end);
-            index ++;
+            int in = 0;
+            int out = 0;
+            int after_space = 0;
+            for (int i = 0; i < CKata.Length; i++) {
+                // Check is before or after space
+                if (CKata.TabKata[i] == ' ') {
+                    after_space = 1;
+                }
+                // Set char before space as in value
+                if (after_space == 0 && CKata.TabKata[i] != ' ') {
+                    in *= 10;
+                    in += converter(CKata.TabKata[i]);
+                // Set char after space as out value
+                } else  if (after_space == 1 && CKata.TabKata[i] != ' ') {
+                    out *= 10;
+                    out += converter(CKata.TabKata[i]);
+                }
+            }
+            setTeleporter(index, in, out);
+            index++;
         }
         line++;
         ADVKATA();
@@ -49,23 +61,34 @@ void loadConfig() {
     printf("Configuration has been loaded successfully\n");
 }
 
-void setMapLength(int length) {
-    mapLength = length;
+void setMapLenght(int lenght) {
+    mapLenght = lenght;
 }
-void allocateTeleportersLength(int length){
-    teleporters = calloc(length, sizeof(teleport));
+
+void setMap(Kata mapConfig) {
+    /*for (int i = 0; i <= mapConfig.Length; i++){
+        map[i] = mapConfig.TabKata[i];
+    }*/
+    for (int i = 0; i < mapConfig.Length; i++){
+        map[i] = mapConfig.TabKata[i];
+    }
 }
+
+void allocateTeleportersLenght(int lenght){
+    teleporters = calloc(lenght, sizeof(teleport));
+}
+
 void freeTeleporters(){
     free(teleporters);
 }
 
-void setTeleporter(int index, int start, int end) {
+void setTeleporter(int index, int in, int out) {
     teleport temp;
-    temp.startPoint = start;
-    temp.endPoint = end;
+    temp.inPoint = in;
+    temp.outPoint = out;
     teleporters[index] = temp;
 }
 
 void setMaxDiceRole(int value){
-   maxDiceRole = value;
+    maxDiceRole = value;
 }

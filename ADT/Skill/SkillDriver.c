@@ -19,7 +19,7 @@ void loading(int input_seconds) {
     for (i = 0; i < input_seconds; i++) {
         // delay of one second
         delay(1);
-        printf(". ", i + 1);
+        printf(". ");
     }
     printf("\n");
 }
@@ -31,6 +31,15 @@ int main(){
     printf("\n===== SKILL =====\n");
     
     CreateEmptySkill(&LSkill);
+    InsertSkill(&LSkill, 1);
+    InsertSkill(&LSkill, 2);
+    InsertSkill(&LSkill, 4);
+    InsertSkill(&LSkill, 3);
+    InsertSkill(&LSkill, 7);
+    InsertSkill(&LSkill, 8);
+    InsertSkill(&LSkill, 5);
+    InsertSkill(&LSkill, 6);
+    InsertSkill(&LSkill, 7);
 
     printf("\n## Skill Pertama ##\n");
     printf("Melakukan random skill pemain\n");
@@ -46,17 +55,13 @@ int main(){
     printf("\n## Operasi Skill tiap Ronde ##");
     int input;
     do {
-        printf("\n~ AWAL RONDE ~\n");
-        if (CountSkill(LSkill) == 10) {
-            printf("Skill penuh, tidak dapat melakukan random skill\n");
-        } else {
-            // Random Skill
-            printf("Melakukan random skill pemain\n");
-            IDSkill = RandomSkill(LSkill);
-            printf("Skill yang diperoleh adalah : %d\n", IDSkill);
-            // Insert Skill
-            InsertSkill(&LSkill, IDSkill);
-        }
+        printf("\n=== AWAL RONDE ===\n");
+        // Random Skill
+        printf("Melakukan random skill pemain\n");
+        IDSkill = RandomSkill(LSkill);
+        printf("Skill yang diperoleh adalah : %d\n", IDSkill);
+        // Insert Skill
+        InsertSkill(&LSkill, IDSkill);
         // Print Skill
         printf("Skill pemain saat ini :\n");
         PrintSkill(LSkill);
@@ -65,14 +70,14 @@ int main(){
         scanf("%d", &input);
         // Do operation based on user input
         if (input > 0) {
-            printf("Skill %d berhasil digunakan!!\n", input);
+            printf("Skill %d berhasil digunakan\n", input);
             DeleteSkill(&LSkill, input);
         } else if (input < 0) {
             input *= -1;
             printf("Skill %d berhasil dibuang\n", input);
             DeleteSkill(&LSkill, input);
         }
-        printf("~ AKHIR RONDE ~\n");
+        printf("=== AKHIR RONDE ===\n");
         loading(3);
     } while (input != 0);
     // End of program

@@ -1,3 +1,4 @@
+config
 numOfPlayers
 name position
 name position

@@ -1,13 +1,16 @@
-#ifndef Skill_H
-#define Skill_H
+// File: Skill.h
+// Define skill adt (use list linear implementation)
+
+#ifndef Skill_h
+#define Skill_h
 
 #include "../boolean.h"
-#include "../ListLInier/ListLinier.h"
+#include "ListLinier.h"
 
+#define Nil NULL
 
-extern int TabSkill[100];
-
-typedef List Skill;
+extern int tabSkill[100]; // tabskill created for random skill based on probability
+typedef List skill; // define skill as list liniear
 
 #define Skill1 "Pintu Ga Ke Mana Mana"
 #define Skill2 "Mesin Waktu"
@@ -18,37 +21,20 @@ typedef List Skill;
 #define Skill7 "Mesin Penukar Posisi"
 #define Skill8 "Teknologi Gagal"
 
-void CreateTabSkill();
 
-void CreateEmptySkill (Skill *LS);
+void createTabSkill();
 
-int CountSkill(Skill LS);
+void createEmptySkill(skill *LS);
 
-int RandomSkill();
+int countSkill(skill LS);
 
-void InsertSkill (Skill *LS, infotype X);
+int getRandomSkill();
 
-void DeleteSkill (Skill *LS, int Num);
+void insertSkill(skill *LS, infotype X);
 
-void PrintSkill (Skill LS);
+void deleteSkill(skill *LS, int num);
 
-void RunSkill(Skill LS, int Num);
-
-void RunSkill1();
-
-void RunSkill2();
-
-void RunSkill3();
-
-void RunSkill4();
-
-void RunSkill5();
-
-void RunSkill6();
-
-void RunSkill7();
-
-void RunSkill8();
+void printSkill(skill LS);
 
 
 #endif

@@ -1,8 +1,8 @@
-/* File: mesinkar.h */
+/* File: mesin_kar.h */
 /* Definisi Mesin Karakter */
 
-#ifndef __MESIN_KAR_H_
-#define __MESIN_KAR_H_
+#ifndef Mesin_Kar_H
+#define Mesin_Kar_H
 
 #include "../boolean.h"
 #include <string.h>

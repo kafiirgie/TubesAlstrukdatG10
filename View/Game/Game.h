@@ -1,20 +1,15 @@
-//
-//  GAME.h
-//  AlstrukDat
-//
-//  Created by Farhandika Zahrir Mufti guenia on 31/08/21.
-//
+// File: Game.h
 
-#ifndef GAME_h
-#define GAME_h
+#ifndef Game_h
+#define Game_h
 #include "../../ADT/boolean.h"
 #include "../../ADT/Player/Player.h"
 
-// how many players are playing
-extern int playersPlaying;
+extern int playersPlaying; // how many players are playing
+extern boolean isEndGame; // if someone win then isEndGame
 
-// if someone win then isEndGame
-extern boolean isEndGame;
+void showPlayerCommand();
+// show player command
 
 void GameView(int opsi);
 
@@ -26,12 +21,45 @@ void StartGame();
 
 void ExitGame();
 
-void displayMap();
-// sort player based on their position
-void rankPlayers(player *players[4]);
-// display player rank
-void displayRank();
-// display game rule
 void displayGameRule();
+// display game rule
 
-#endif /* GAME_h */ 
+boolean checkIsEndGame(int position);
+//check if it's the end of the game
+
+void rankPlayers(player *players[4]);
+// sort player based on their position
+
+void displayRank();
+// display player rank
+
+void showPlayerPosition(int position); //adt player
+// show the position of the player
+
+void displayMap(); //adt map
+// display game map
+
+void inspectMap(int point); //adt map
+// Check if there is a teleporter at that point
+
+void playerUseSkill(int idPlayer, int countPlayersPlaying);
+// Use skill
+
+void useSkill1(int idPlayer);
+// use skill 1 : Pintu Ga Ke Mana Mana
+void useSkill2(int idPlayer);
+// use skill 2 : Mesin Waktu
+void useSkill3(int idPlayer);
+// use skill 3 : Baling Baling Jambu
+void useSkill4(int idPlayer);
+// use skill 4 : Cermin Pengganda
+void useSkill5(int idPlayer);
+// use skill 5 : Senter Pembesar Hoki
+void useSkill6(int idPlayer);
+// use skill 6 : Senter Pengecil Hoki
+void useSkill7(int idPlayer, int countPlayersPlaying);
+// use skill 7 : Mesin Penukar Posisi
+void useSkill8(int idPlayer);
+// use skill 8 : Teknologi Gagal
+
+#endif

@@ -5,7 +5,16 @@
         "game.h": "c",
         "configuration.h": "c",
         "mesin_kata.h": "c",
-        "listlinier.h": "c",
-        "algorithm": "c"
+        "chrono": "c",
+        "cmath": "c",
+        "random": "c",
+        "*.tcc": "c",
+        "memory": "c",
+        "mutex": "c",
+        "new": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "typeinfo": "c",
+        "round.h": "c"
     }
 }

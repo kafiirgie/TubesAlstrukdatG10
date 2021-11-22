@@ -1,41 +1,47 @@
-//
-//  Configuration.h
-//  AlstrukDat
-//
-//  Created by Farhandika Zahrir Mufti guenia on 31/08/21.
-//
+// File: Configuration.h
+// Define map, teleport, maxDiceRole 
 
 #ifndef Configuration_h
 #define Configuration_h
 
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
 #include "../MesinKarKat/mesin_kata.h"
-#include <string.h>
 
-extern char map[255];
-extern int mapLength;
 extern int maxDiceRole;
+extern char map[255];
+extern int mapLenght;
+extern int teleportLenght;
+
 typedef struct {
-    int startPoint;
-    int endPoint;
+    int inPoint;
+    int outPoint;
 } teleport;
 
 teleport *teleporters;
 
 void loadConfig();
-//Load the config
+// Load the config
+
 void setConfigFile();
-//set the config name
-void setMapLength(int length);
-// set the map length
+// Set the config name
+
+void setMapLenght(int lenght);
+// Set the map lenght
+
 void setMap(Kata mapConfig);
-// set the map value
-void allocateTeleportersLength(int length);
-// allocate memory for teleporters
+// Set the map value
+
+void allocateTeleportersLenght(int lenght);
+// Allocate memory for teleporters
+
 void freeTeleporters();
-void setTeleporter(int index, int start, int end);
-//set teleportter value
+// Dealloccte memory for teleporters
+
+void setTeleporter(int index, int in, int out);
+// Set teleporter value
+
 void setMaxDiceRole(int value);
 //set dice role max
 

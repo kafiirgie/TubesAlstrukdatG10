@@ -1,10 +1,11 @@
 #include "Configuration.h"
 
 int main() {
-    sscanf("config.txt","%s",fileName);
+    //sscanf("config.txt","%s",fileName);
+    setConfigFile();
     loadConfig();
-    if (mapLength != 20) {
-        printf("Map length not set \n");
+    if (mapLenght != 20) {
+        printf("Map lenght not set \n");
         return -1;
     }
     // map test
@@ -17,12 +18,16 @@ int main() {
         printf("Map properties not set \n");
         return -1;
     }
-    if (teleporters[0].startPoint != 3){
-        printf("Teleporter gone wrong \n");
-        printf("Teleporter start point %d",teleporters[0].startPoint);
-        return -1;
+    for (int i = 0; i < teleportLenght; i++) {
+        printf("in : %d , out : %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
     }
     freeTeleporters();
     printf("Pass all test,gratio!\n");
+
+    printf("Max Dice Roll : %d\n", maxDiceRole);
+    printf("Map Length : %d\n", mapLenght);
+    printf("Game map :\n");
+    printf("%s\n", map);
+
     return 0;
 }
