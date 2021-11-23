@@ -16,7 +16,8 @@ Teleport! adalah sebuah permainan berbasis pada ular tangga yang dibuat mengguna
   1. Mesin Kata
   2. Mesin Karakter
   3. Struktur Berkait
-  4. Array
+  4. Stack
+  5. Array
 
 ## Dependencies/Libraries
   1. stdlib
