@@ -1,15 +1,15 @@
-# Telpoert!
+# Telport!
 ## About
 Teleport! adalah sebuah permainan berbasis pada ular tangga yang dibuat menggunakan bahasa C sebagai syarat kelulusan pada mata kuliah Algoritma dan Struktur Data
 ## Mechanics
 ## How To Run
-  1. Buka Terminal jika adan menggunakan Unix based dan Command Line jika menggunakan Window based system.
+  1. Buka Terminal jika anda menggunakan Unix based dan Command Line jika menggunakan Window based system.
   2. Pergi ke direktori dimana anda meletakan folder ini
-  3. Buka folder ini 
-  4. Jalankan perintah 'make'
+  3. Buka folder ini pada terminal/cmd anda
+  4. Jalankan perintah 'make' pada terminal/cmd anda
   5. Tunggu hingga program tercompile semua
   6. Jalankan aplikasi "game" yang sudah anda compile
-  7. Jika terjadi error, lakukan step 1 sampai dengan 3, lalu masukan command './game'
+  7. Jika terjadi error, lakukan step 1 sampai dengan 3, lalu masukan command './game' pada terminal/cmd anda
   8. Selamat! anda bisa memainkan game ini bersama dengan 3 teman anda
  
 ## ADT Dasar
