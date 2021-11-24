@@ -96,6 +96,7 @@ void StartGame() {
     boolean exitGame = false;
     int round = 1;
     int opsi = -9;
+   // boolean isRedo = false;
     // stack rondenya
     Ronde rounde;
     //
@@ -138,14 +139,19 @@ void StartGame() {
                     showPlayerPosition(data.players[i].position);
                 }
                 else if (opsi == 6) {
-                    if (data.rondeKeberapa == 1){
-                        printf("Undo skill is unavailable \n");
+                    if (data.rondeKeberapa == 1 || data.rondeKeberapa == 2){
+                        printf("Starting game state at end of round 1 \n");
+                        // redo the whole thing
+                        // isRedo = true;
+                        // exitGame = true;
+                        break;
                     } else {
                         PopRonde(&rounde,&data);
                         data = CurrRonde(rounde);
                     }
                 } else if (opsi == 7) {
                     // end turn
+                    break;
                 }
                 else if (opsi == 0) {
                     exitGame = true;
@@ -154,11 +160,17 @@ void StartGame() {
             }
 
             PushRonde(&rounde,data);
-            if (exitGame) { break ;}
+            if (exitGame) { 
+                break ;
+                }
             didRoleDice = false;
             isEndGame = checkIsEndGame(CurrRonde(rounde).players[i].position);
             if (isEndGame) break;
         }
+        // redo game
+       // if (isRedo) StartGame();
+
+        // end game
         if (exitGame) { break ;}
         round++;
     }

@@ -40,19 +40,30 @@ void playerRoleDice(player *thePlayer, int maxDice) {
     if (isPlayerCanMoveForward && isPlayerCanMoveBackward) {
         printf("Player can move forward %d step\n",move);
         printf("Player can move backward %d step\n",move);
-        printf("Type '1' to move forward or type '2' to move backward\n");
+        printf("Type 1 to perform move forward\n");
+        printf("Type 2 to perform move forward\n");
+        // if (isPlayerCanMoveForward) { 
+        //     printf("Player can move forward %d step\n",move);
+        //     printf("Type 1 to perform move forward\n");
+        // }
+        // if (isPlayerCanMoveBackward) { 
+        //     printf("Player can move backward %d step\n",move);
+        //     printf("Type 2 to perform move forward\n");
+        // }
+        //printf("Type '1' to move forward or type '2' to move backward\n");
         printf("Input : ");
         int selection = playerOption();
         if (selection == 1) {
             thePlayer->position += move;
-        } else if (selection == 2) {
+        } 
+        if (selection == 2) {
             thePlayer->position -= move;
         }
     } else if (isPlayerCanMoveForward && !isPlayerCanMoveBackward) {
-        printf("Player can move forward %d step\n",move);
+        printf("Player can only move forward %d step\n",move);
         thePlayer->position += move;
     } else if (!isPlayerCanMoveForward && isPlayerCanMoveBackward) {
-        printf("Player can move backward %d step\n",move);
+        printf("Player can only move backward %d step\n",move);
         thePlayer->position -= move;
     } else {
         printf("Player can't move\n");
@@ -99,6 +110,7 @@ boolean isCanTeleport(player *thePlayer) {
     for (int i = 0; i < teleportLenght; i++){
         if (thePlayer->position+1 == teleporters[i].inPoint) {
             val = true;
+            break;
         }
     }
     return val;
