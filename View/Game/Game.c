@@ -47,9 +47,6 @@ void GameView(int opsi) {
     printf("\n Let's Start The Game!\n");
     displayMap();
     StartGame();
-    if (isEndGame) {
-        displayRank();
-    }
     ExitGame();
 }
 
@@ -118,6 +115,7 @@ void StartGame() {
                 showPlayerCommand();
                 printf("Select your move : ");
                 opsi = playerOption();
+                //printf(" opsi : %d",opsi);
                 if (opsi == 1) {
                     playerRoleDice(&data.players[i],maxDiceRole);
                     //ifCanTeleport(&data.players[i]); //cant works if skill used
@@ -136,6 +134,7 @@ void StartGame() {
                     inspectMap(point);
                 }
                 else if (opsi == 5) {
+                    //printf("true pos : %d\n",data.players[i].position);
                     showPlayerPosition(data.players[i].position);
                 }
                 else if (opsi == 6) {
@@ -153,6 +152,11 @@ void StartGame() {
                     // end turn
                     break;
                 }
+                else if (opsi == 8) {
+                    // hidden feature aka buat testing
+                    data.players[i].position = mapLenght-1;
+                    didRoleDice = true;
+                }
                 else if (opsi == 0) {
                     exitGame = true;
                     break;
@@ -165,6 +169,11 @@ void StartGame() {
                 }
             didRoleDice = false;
             isEndGame = checkIsEndGame(CurrRonde(rounde).players[i].position);
+            // if (isEndGame) { 
+            //     printf("end game %d",data.players[i].position);
+            // } else {
+            //     printf("not end ganme %d",data.players[i].position);
+            // }
             if (isEndGame) break;
         }
         // redo game
@@ -181,7 +190,10 @@ void ExitGame() {
     freeTeleporters();
     if (isEndGame == 1) {
         //sort user based on position
+        rankPlayers();
         printf("Congratulation, you've reach the end game!\n");
+        printf("Player ranks : \n");
+        displayRank();
     } else {
         // Save progress
         printf("Saving progress.....\n");
@@ -193,16 +205,26 @@ void displayGameRule() {
 }
 
 boolean checkIsEndGame(int position) {
-    return position >= mapLenght;
+    return position + 1 >= mapLenght;
 }
 
-void rankPlayers(player *players[4]) {
-// sort player based on their position
+void rankPlayers() {
+    int i, j;
+    player key;
+    for (i = 1; i < playersPlaying; i++) {
+        key = data.players[i];
+        j = i - 1;
+        while (j >= 0 && data.players[j].position < key.position) {
+            data.players[j + 1] = data.players[j];
+            j = j - 1;
+        }
+        data.players[j + 1] = key;
+    }
 }
 
 void displayRank() {
     for (int i = 0; i < playersPlaying; i++) {
-       // printf("Rank #%d : %s \n",i+1,players[i].name);
+       printf("Rank #%d : %s \n",i+1,data.players[i].name);
     }
 }
 
