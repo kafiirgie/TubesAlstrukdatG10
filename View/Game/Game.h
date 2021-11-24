@@ -27,7 +27,7 @@ void displayGameRule();
 boolean checkIsEndGame(int position);
 //check if it's the end of the game
 
-void rankPlayers(player *players[4]);
+void rankPlayers();
 // sort player based on their position
 
 void displayRank();

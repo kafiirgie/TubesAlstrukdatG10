@@ -127,6 +127,7 @@ boolean isPlayerCanMove(int change, int position, boolean isUpward) {
 int playerOption() {
     int selection;
     scanf("%d", &selection);
+    printf("\n");
     return selection;
 }
 
