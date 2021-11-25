@@ -130,3 +130,16 @@ void printSkill(skill LS) {
         } while (P != Nil);
     }
 }
+
+int getIdSkill(skill LS, int num) {
+    int x, i;
+    address P;
+    i = 1;
+    P = First(LS);
+    while (i < num) {
+        P = Next(P);
+        i++;
+    }
+    x = Info(P);
+    return x;
+}

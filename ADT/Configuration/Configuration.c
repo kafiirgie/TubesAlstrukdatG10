@@ -66,9 +66,6 @@ void setMapLenght(int lenght) {
 }
 
 void setMap(Kata mapConfig) {
-    /*for (int i = 0; i <= mapConfig.Length; i++){
-        map[i] = mapConfig.TabKata[i];
-    }*/
     for (int i = 0; i < mapConfig.Length; i++){
         map[i] = mapConfig.TabKata[i];
     }
