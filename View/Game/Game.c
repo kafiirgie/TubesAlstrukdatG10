@@ -93,7 +93,7 @@ void StartGame() {
     boolean exitGame = false;
     int round = 1;
     int opsi = -9;
-   // boolean isRedo = false;
+    // boolean isRedo = false;
     // stack rondenya
     Ronde rounde;
     //
@@ -101,6 +101,7 @@ void StartGame() {
     data.rondeKeberapa = 1;
     PushRonde(&rounde,data);
     boolean didRoleDice = false;
+    boolean isEndTurn = false;
     //Loop per ronde
 
     //sistem undo jalan, do not touch
@@ -110,19 +111,28 @@ void StartGame() {
         data.rondeKeberapa = round;
         for (int i = 0; i < playersPlaying; i++) {
             //clear screen
-            while (!didRoleDice){ 
+            while (!isEndTurn) { 
                 printf("It's %s turn! \n",CurrRonde(rounde).players[i].name);
+                //Generate random skill
+                insertSkill(&data.players[i].skills, getRandomSkill());
+                //Show map posiiton
+                for (int j = 0; j < playersPlaying; i++) {
+                    showPlayerPosition(data.players[j].position);
+                }
+                //Show player command
                 showPlayerCommand();
                 printf("Select your move : ");
                 opsi = playerOption();
-                //printf(" opsi : %d",opsi);
                 if (opsi == 1) {
                     playerRoleDice(&data.players[i],maxDiceRole);
-                    //ifCanTeleport(&data.players[i]); //cant works if skill used
                     didRoleDice = true;
                 }
                 else if (opsi == 2) {
-                    playerUseSkill(i, playersPlaying);
+                    if (didRoleDice) {
+                        printf("Player can't use skill, already role dice!\n");
+                    } else {
+                        playerUseSkill(i, playersPlaying);
+                    }
                 }
                 else if (opsi == 3) {
                     showPlayerBuff(&data.players[i]);
@@ -134,8 +144,9 @@ void StartGame() {
                     inspectMap(point);
                 }
                 else if (opsi == 5) {
-                    //printf("true pos : %d\n",data.players[i].position);
-                    showPlayerPosition(data.players[i].position);
+                    for (int j = 0; j < playersPlaying; i++) {
+                        showPlayerPosition(data.players[j].position);
+                    }
                 }
                 else if (opsi == 6) {
                     if (data.rondeKeberapa == 1 || data.rondeKeberapa == 2){
@@ -150,7 +161,11 @@ void StartGame() {
                     }
                 } else if (opsi == 7) {
                     // end turn
-                    break;
+                    if (didRoleDice) {
+                        isEndTurn = true;
+                    } else {
+                        printf("Player can't end turn now, player has not moved yet.\n");
+                    }
                 }
                 else if (opsi == 8) {
                     // hidden feature aka buat testing
@@ -158,8 +173,9 @@ void StartGame() {
                     didRoleDice = true;
                 }
                 else if (opsi == 0) {
+                    // exit game
                     exitGame = true;
-                    break;
+                    isEndTurn = true;
                 }
             }
 
