@@ -19,11 +19,17 @@ typedef struct {
 void setPlayer(player *thePlayer);
 // Set player properties
 
-void playerRoleDice(player *thePlayer, int maxDice);
-// Role dice
+int getDiceValue(int minRoll, int maxRoll);
+// Generate random dice value with interval minRoll-maxRoll 
+
+void playerRollDice(player *thePlayer, int maxDice);
+// Roll dice and move player
 
 void playerTeleport(player *thePlayer);
 // Check if teleport eligible at that point and condition, if it's then the player will teleport
+
+void runTeleport(player *thePlayer);
+// Teleport player from inPoint to outPoint
 
 boolean isCanTeleport(player *thePlayer);
 // Check is teleport eligible at that point
@@ -40,5 +46,7 @@ void resetPlayerBuff(player *thePlayer);
 void showPlayerBuff(player *thePlayer);
 // show player buff that active
 
+void showPlayerPosition(int position); //adt player
+// show the position of the player
 
 #endif

@@ -33,6 +33,12 @@ void setMapLenght(int lenght);
 void setMap(Kata mapConfig);
 // Set the map value
 
+void displayMap(); //adt map
+// display game map
+
+void inspectMap(int point); //adt map
+// Check if there is a teleporter at that point
+
 void allocateTeleportersLenght(int lenght);
 // Allocate memory for teleporters
 

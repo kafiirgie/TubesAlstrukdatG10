@@ -33,13 +33,13 @@ void rankPlayers();
 void displayRank();
 // display player rank
 
-void showPlayerPosition(int position); //adt player
+//void showPlayerPosition(int position); //adt player
 // show the position of the player
 
-void displayMap(); //adt map
+//void displayMap(); //adt map
 // display game map
 
-void inspectMap(int point); //adt map
+//void inspectMap(int point); //adt map
 // Check if there is a teleporter at that point
 
 void playerUseSkill(int idPlayer, int countPlayersPlaying);
@@ -47,9 +47,9 @@ void playerUseSkill(int idPlayer, int countPlayersPlaying);
 
 void useSkill1(int idPlayer);
 // use skill 1 : Pintu Ga Ke Mana Mana
-void useSkill2(int idPlayer);
+void useSkill2(int idPlayer, int countPlayersPlaying);
 // use skill 2 : Mesin Waktu
-void useSkill3(int idPlayer);
+void useSkill3(int idPlayer, int countPlayersPlaying);
 // use skill 3 : Baling Baling Jambu
 void useSkill4(int idPlayer);
 // use skill 4 : Cermin Pengganda

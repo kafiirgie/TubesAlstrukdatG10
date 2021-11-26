@@ -24,9 +24,13 @@ void setPlayer(player *thePlayer) {
     thePlayer->buff[3] = false; //Buff Senter Pengecil Hoki
 }
 
-void playerRoleDice(player *thePlayer, int maxDice) {
+int getDiceValue(int minRoll, int maxRoll) {
+    return (rand() % maxRoll + minRoll);
+}
+
+void playerRollDice(player *thePlayer, int maxDice) {
     // Get move value
-    int move = 0;
+    int move;
     int maxRoll = maxDice;
     int minRoll = 1;
     if (thePlayer->buff[2]) {
@@ -34,7 +38,7 @@ void playerRoleDice(player *thePlayer, int maxDice) {
     } else if (thePlayer->buff[3]) {
         maxRoll = div(maxDice, 2).quot;
     }
-    move = rand() % maxRoll + minRoll;
+    move = getDiceValue(minRoll, maxRoll);
     // Move player
     boolean isPlayerCanMoveForward = isPlayerCanMove(move,thePlayer->position,true);
     boolean isPlayerCanMoveBackward = isPlayerCanMove(move,thePlayer->position,false);
@@ -60,7 +64,12 @@ void playerRoleDice(player *thePlayer, int maxDice) {
     } else {
         printf("%s can't move.\n", thePlayer->name);
     }
-    printf("%s current position is : %d.\n", thePlayer->name, thePlayer->position+1);
+    printf("%s current position is on : %d.\n", thePlayer->name, thePlayer->position+1);
+    // Check teleporter
+    playerTeleport(thePlayer);
+}
+
+void playerTeleport(player *thePlayer) {
     // Check teleporter
     if (isCanTeleport(thePlayer)) {
         printf("There is teleporter in %s's current position.\n", thePlayer->name);
@@ -76,18 +85,18 @@ void playerRoleDice(player *thePlayer, int maxDice) {
                 //Remove immunity teleport buff
                 thePlayer->buff[0] = false;
             } else if (selection == 0) {
-                playerTeleport(thePlayer);
+                runTeleport(thePlayer);
             }
         } else {
             printf("%s don't have teleport immunity.\n", thePlayer->name);
-            playerTeleport(thePlayer);
+            runTeleport(thePlayer);
         }
     } else {
         printf("There is no teleporter in %s's current position.\n", thePlayer->name);
     }
 }
 
-void playerTeleport(player *thePlayer) {
+void runTeleport(player *thePlayer) {
     for (int i = 0; i < teleportLenght; i++){
         if (thePlayer->position+1 == teleporters[i].inPoint) {
             thePlayer->position = teleporters[i].outPoint-1;
@@ -146,4 +155,15 @@ void showPlayerBuff(player *thePlayer) {
         printf("%d. Senter Pengecil Hoki", i);
         i++;
     }
+}
+
+void showPlayerPosition(int position) {
+    for (int i = 0; i < mapLenght; i++) {
+        if (i == position) {
+            printf("%c",'*');
+        } else {
+            printf("%c",map[i]);
+        }
+    }
+    printf(" %d \n", position+1);
 }

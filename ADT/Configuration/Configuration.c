@@ -71,6 +71,29 @@ void setMap(Kata mapConfig) {
     }
 }
 
+void displayMap() {
+    printf("Game map :\n");
+    printf("%s\n",map);
+}
+
+void inspectMap(int point) {
+    point -= 1;
+    if (map[point] == '#') {
+        printf("Player can't move to this point\n");
+    } else if (map[point] == '.') {
+        boolean foundtp = false;
+        for (int i = 0; i < teleportLenght; i++){
+            if (point+1 == teleporters[i].inPoint) {
+                foundtp = true;
+                printf("There is teleporter from : %d to : %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
+            }
+        }
+        if(!foundtp) {
+            printf("There is no teleporter in : %d \n", point+1);
+        }
+    }
+}
+
 void allocateTeleportersLenght(int lenght){
     teleporters = calloc(lenght, sizeof(teleport));
 }

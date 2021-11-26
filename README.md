@@ -28,7 +28,8 @@ Teleport! adalah sebuah permainan berbasis pada ular tangga yang dibuat mengguna
 G10
 
 ## Dibuat Oleh
-  1. 18220015 - Farhandika Zahrir Mufti Guenia
-  2.
-  3.
-  4.
+  1. 18220005 - Muhammad Rifqi Riansyah M.
+  2. 18220015 - Farhandika Zahrir Mufti Guenia
+  3. 18220020 - Kafi Irgie Rahmansyah
+  4. 18220036 - Kirana Shely Sefiana
+  5. 18220081 - Muhamad Fariz Ramadhan

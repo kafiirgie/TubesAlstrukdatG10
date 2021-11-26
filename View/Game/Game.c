@@ -116,8 +116,9 @@ void StartGame() {
                 printf("It's %s turn! \n",CurrRonde(rounde).players[i].name);
                 //Generate random skill
                 insertSkill(&data.players[i].skills, getRandomSkill());
-                //Show map posiiton
-                for (int j = 0; j < playersPlaying; i++) {
+                //Show player posiiton in map
+                for (int j = 0; j < playersPlaying; j++) {
+                    printf("%d. %s : ", j+1, data.players[j].name);
                     showPlayerPosition(data.players[j].position);
                 }
                 //Show player command
@@ -126,7 +127,7 @@ void StartGame() {
                 opsi = playerOption();
                 if (opsi == 1) {
                     int positionInitial = data.players[i].position; 
-                    playerRoleDice(&data.players[i],maxDiceRole);
+                    playerRollDice(&data.players[i],maxDiceRole);
                     didRoleDice = true;
                     int positionFinal = data.players[i].position;
                     isMoved = positionInitial != positionFinal; 
@@ -248,7 +249,7 @@ void displayRank() {
     }
 }
 
-void showPlayerPosition(int position) {
+/*void showPlayerPosition(int position) {
     for (int i = 0; i < mapLenght; i++) {
         if (i == position) {
             printf("%c",'*');
@@ -257,9 +258,9 @@ void showPlayerPosition(int position) {
         }
     }
     printf(" %d \n", position+1);
-}
+}*/
 
-void displayMap() {
+/*void displayMap() {
     printf("Game map :\n");
     printf("%s\n",map);
 }
@@ -280,7 +281,7 @@ void inspectMap(int point) {
             printf("There is no teleporter in : %d \n", point+1);
         }
     }
-}
+}*/
 
 void playerUseSkill(int idPlayer, int countPlayersPlaying) {
     printSkill(data.players[idPlayer].skills);
@@ -293,8 +294,8 @@ void playerUseSkill(int idPlayer, int countPlayersPlaying) {
             //use skill
             switch (index) {
                 case 1: useSkill1(idPlayer); break;
-                case 2: useSkill2(idPlayer); break;
-                case 3: useSkill3(idPlayer); break;
+                case 2: useSkill2(idPlayer, countPlayersPlaying); break;
+                case 3: useSkill3(idPlayer, countPlayersPlaying); break;
                 case 4: useSkill4(idPlayer); break;
                 case 5: useSkill5(idPlayer); break;
                 case 6: useSkill6(idPlayer); break;
@@ -336,11 +337,49 @@ void useSkill1(int idPlayer) {
         printf("New buff : Imunitas Teleport\n");   
     }
 }
-void useSkill2(int idPlayer) {
-    // UNDER DEVELOPMENT
+void useSkill2(int idPlayer, int countPlayersPlaying) {
+    printf("You can move other players backward.\n");
+    printf("Players :\n");
+    for (int i = 0; i < countPlayersPlaying; i++) {
+        if (i != idPlayer) {
+            printf("%d. %s\n", i+1, data.players[i].name);
+        }
+    }
+    printf("Select id Player : ");
+    int idOpponent = playerOption()-1;
+    int moveOpponent = getDiceValue(1, maxDiceRole);
+    if (isPlayerCanMove(moveOpponent, data.players[idOpponent].position, false)) {
+        // Move opponent player backward
+        data.players[idOpponent].position -= moveOpponent;
+        printf("%s is moved backward %d steps.\n", data.players[idOpponent].name, moveOpponent);
+        printf("Now, %s position is on : %d.\n", data.players[idOpponent].name, data.players[idOpponent].position+1);
+        // Check teleporter
+        playerTeleport(&data.players[idOpponent]);
+    } else {
+        printf("%s can't move backward %d steps.\n", data.players[idOpponent].name);
+    }
 }
-void useSkill3(int idPlayer) {
-    // UNDER DEVELOPMENT
+void useSkill3(int idPlayer, int countPlayersPlaying) {
+    printf("You can move other players forward.\n");
+    printf("Players :\n");
+    for (int i = 0; i < countPlayersPlaying; i++) {
+        if (i != idPlayer) {
+            printf("%d. %s\n", i+1, data.players[i].name);
+        }
+    }
+    printf("Select id Player : ");
+    int idOpponent = playerOption()-1;
+    int moveOpponent = getDiceValue(1, maxDiceRole);
+    if (isPlayerCanMove(moveOpponent, data.players[idOpponent].position, true)) {
+        // Move opponent player forward
+        data.players[idOpponent].position += moveOpponent;
+        printf("%s is moved forward %d steps.\n", data.players[idOpponent].name, moveOpponent);
+        printf("Now, %s position is on : %d.\n", data.players[idOpponent].name, data.players[idOpponent].position+1);
+        // Check teleporter
+        playerTeleport(&data.players[idOpponent]);
+    } else {
+        printf("%s can't move forward %d steps.\n", data.players[idOpponent].name);
+    }
 }
 void useSkill4(int idPlayer) {
     if (data.players[idPlayer].buff[1]) {
