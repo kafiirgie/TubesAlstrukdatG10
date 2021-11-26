@@ -73,6 +73,8 @@ void playerRoleDice(player *thePlayer, int maxDice) {
             if (selection == 1) {
                 printf("%s use teleport immunity.\n", thePlayer->name);
                 printf("%s isn't teleporting.\n", thePlayer->name);
+                //Remove immunity teleport buff
+                thePlayer->buff[0] = false;
             } else if (selection == 0) {
                 playerTeleport(thePlayer);
             }

@@ -90,7 +90,6 @@ void LoadGame() {
 
 // THE GAME
 void StartGame() {
-    boolean exitGame = false;
     int round = 1;
     int opsi = -9;
     // boolean isRedo = false;
@@ -100,7 +99,9 @@ void StartGame() {
     CreateRondeEmpty(&rounde);
     data.rondeKeberapa = 1;
     PushRonde(&rounde,data);
+    boolean exitGame = false;
     boolean didRoleDice = false;
+    boolean isMoved = false;
     boolean isEndTurn = false;
     //Loop per ronde
 
@@ -124,11 +125,14 @@ void StartGame() {
                 printf("Select your move : ");
                 opsi = playerOption();
                 if (opsi == 1) {
+                    int positionInitial = data.players[i].position; 
                     playerRoleDice(&data.players[i],maxDiceRole);
                     didRoleDice = true;
+                    int positionFinal = data.players[i].position;
+                    isMoved = positionInitial != positionFinal; 
                 }
                 else if (opsi == 2) {
-                    if (didRoleDice) {
+                    if (isMoved) {
                         printf("Player can't use skill, already role dice!\n");
                     } else {
                         playerUseSkill(i, playersPlaying);
@@ -161,7 +165,7 @@ void StartGame() {
                     }
                 } else if (opsi == 7) {
                     // end turn
-                    if (didRoleDice) {
+                    if (isMoved) {
                         isEndTurn = true;
                     } else {
                         printf("Player can't end turn now, player has not moved yet.\n");
@@ -308,6 +312,8 @@ void playerUseSkill(int idPlayer, int countPlayersPlaying) {
                 printf("please wait..."); delay(5);
                 temp = getRandomSkill();
                 insertSkill(&data.players[idPlayer].skills, temp);
+                // Remove player buff
+                data.players[idPlayer].buff[1] = false;
             }
         } else if (num < 0) {
             //delete skill
@@ -321,10 +327,14 @@ void playerUseSkill(int idPlayer, int countPlayersPlaying) {
 }
 
 void useSkill1(int idPlayer) {
-    // Set buff player "Imunitas Teleport" into true
-    data.players[idPlayer].buff[0] = true;
-    printf("Congrats, you got new buff!!\n");
-    printf("New buff : Imunitas Teleport\n");
+    if (data.players[idPlayer].buff[0]) {
+        printf("Player can't use this skill, player already got this buff.\n");
+    } else {
+        // Set buff player "Imunitas Teleport" into true
+        data.players[idPlayer].buff[0] = true;
+        printf("Congrats, you got new buff!!\n");
+        printf("New buff : Imunitas Teleport\n");   
+    }
 }
 void useSkill2(int idPlayer) {
     // UNDER DEVELOPMENT
@@ -333,33 +343,45 @@ void useSkill3(int idPlayer) {
     // UNDER DEVELOPMENT
 }
 void useSkill4(int idPlayer) {
-    if (countSkill(data.players[idPlayer].skills) <= 9) {
-        // Set buff player "Cermin Pengganda" into true
-        data.players[idPlayer].buff[1] = true;
-        printf("Congrats, you got new buff!!\n");
-        printf("New buff : Cermin Pengganda\n");
+    if (data.players[idPlayer].buff[1]) {
+        printf("Player can't use this skill, player already got this buff.\n");
     } else {
-        printf("Sorry, you can't use this skill now, please remove some skills.\n");
+        if (countSkill(data.players[idPlayer].skills) <= 9) {
+            // Set buff player "Cermin Pengganda" into true
+            data.players[idPlayer].buff[1] = true;
+            printf("Congrats, you got new buff!!\n");
+            printf("New buff : Cermin Pengganda\n");
+        } else {
+            printf("Sorry, you can't use this skill now, please remove some skills.\n");
+        }
     }
 }
 void useSkill5(int idPlayer) {
-    if (data.players[idPlayer].buff[3]) {
-        printf("Sorry, you can't use this skill now, other buff still active.\n");
+    if (data.players[idPlayer].buff[2]) {
+        printf("Player can't use this skill, player already got this buff.\n");
     } else {
-        // Set buff player "Senter Pembesar Hoki" into true
-        data.players[idPlayer].buff[2] = true;
-        printf("Congrats, you got new buff!!\n");
-        printf("New buff : Senter Pembesar Hoki\n");
+        if (data.players[idPlayer].buff[3]) {
+            printf("Sorry, you can't use this skill now, other buff still active.\n");
+        } else {
+            // Set buff player "Senter Pembesar Hoki" into true
+            data.players[idPlayer].buff[2] = true;
+            printf("Congrats, you got new buff!!\n");
+            printf("New buff : Senter Pembesar Hoki\n");
+        }
     }
 }
 void useSkill6(int idPlayer) {
-    if (data.players[idPlayer].buff[2]) {
-        printf("Sorry, you can't use this skill now, other buff still active.\n");
+    if (data.players[idPlayer].buff[3]) {
+        printf("Player can't use this skill, player already got this buff.\n");
     } else {
-        // Set buff player "Senter Pengecil Hoki" into true
-        data.players[idPlayer].buff[3] = true;
-        printf("Congrats, you got new buff!!\n");
-        printf("New buff : Senter Pengecil Hoki\n");
+        if (data.players[idPlayer].buff[2]) {
+            printf("Sorry, you can't use this skill now, other buff still active.\n");
+        } else {
+            // Set buff player "Senter Pengecil Hoki" into true
+            data.players[idPlayer].buff[3] = true;
+            printf("Congrats, you got new buff!!\n");
+            printf("New buff : Senter Pengecil Hoki\n");
+        }
     }
 }
 void useSkill7(int idPlayer, int countPlayersPlaying) {
