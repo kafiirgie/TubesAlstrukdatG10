@@ -1,5 +1,6 @@
 #include "../Configuration/Configuration.h"
 
+
 int main(int argc, char **argv) {
     //test configuration file
     sscanf("testConf.txt","%s",fileName);
@@ -18,9 +19,9 @@ int main(int argc, char **argv) {
         printf("Map properties not set \n");
         return -1;
     }
-    if (teleporters[0].startPoint != 3){
+    if (teleporters[0].inPoint != 3){
         printf("Teleporter gone wrong \n");
-        printf("Teleporter start point %d",teleporters[0].startPoint);
+        printf("Teleporter start point %d",teleporters[0].inPoint);
         return -1;
     }
     freeTeleporters();

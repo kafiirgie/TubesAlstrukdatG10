@@ -15,6 +15,7 @@
         "streambuf": "c",
         "functional": "c",
         "typeinfo": "c",
-        "round.h": "c"
+        "round.h": "c",
+        "player.h": "c"
     }
 }
