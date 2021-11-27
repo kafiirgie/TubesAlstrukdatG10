@@ -85,6 +85,7 @@ void inspectMap(int point) {
             if (point+1 == teleporters[i].inPoint) {
                 foundtp = true;
                 printf("There is teleporter from %d to %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
+                break;
             }
         }
         if(!foundtp) {

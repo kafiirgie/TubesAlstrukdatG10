@@ -21,8 +21,7 @@ typedef struct {
 } Ronde;
 
 
-#define CurrRonde(S) (S).TOP->Info //get info
-// un usefull shits
+#define CurrRonde(S) (S).TOP->Info
 #define TopRonde(S) (S).TOP
 #define PrevRonde(P) (P)->Next
 #define InfoRonde(P) (P)->Info

@@ -11,10 +11,10 @@ void IgnoreBlank(){
 }
 
 void printKata(Kata kata){
-  for(int i = 0; i <= kata.Length; i++){
-    printf("%c", kata.TabKata[i]);
-  }
-  printf("\n");
+    for(int i = 0; i < kata.Length; i++){
+        printf("%c", kata.TabKata[i]);
+    }
+    printf("\n");
 }
 
 void STARTKATA(int type){

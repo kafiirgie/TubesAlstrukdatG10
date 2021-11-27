@@ -46,7 +46,7 @@ void resetPlayerBuff(player *thePlayer);
 void showPlayerBuff(player *thePlayer);
 // show player buff that active
 
-void showPlayerPosition(int position); //adt player
+void showPlayerPosition(int position);
 // show the position of the player
 
 #endif
