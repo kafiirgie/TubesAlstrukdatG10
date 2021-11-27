@@ -166,7 +166,7 @@ void StartGame() {
                         playerRollDice(&data.players[i],maxDiceRole);
                         didRoleDice = true;
                         int positionFinal = data.players[i].position;
-                        isMoved = true; 
+                        isMoved = positionInitial != positionFinal; 
                     }
                 }
                 else if (opsi == 2) {
