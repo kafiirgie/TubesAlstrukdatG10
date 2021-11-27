@@ -11,6 +11,17 @@
 int playersPlaying = 0;
 boolean isEndGame = false;
 roundData data;
+roundData datadel;
+
+void clear(){
+    #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+        system("clear");
+    #endif
+
+    #if defined(_WIN32) || defined(_WIN64)
+        system("cls");
+    #endif
+}
 
 void delay(int number_of_seconds) {
     // Converting time into milli_seconds
@@ -21,16 +32,28 @@ void delay(int number_of_seconds) {
     while (clock() < start_time + milli_seconds);
 }
 
+void loading(int input_seconds) {
+    int i;
+    //printf("\nloading ");
+    for (i = 0; i < input_seconds; i++) {
+        // delay of one second
+        delay(1);
+        printf(".");
+    }
+    printf("\n");
+}
+
 void showPlayerCommand() {
+    printf("\n---------------\n");
     printf("Your commands : \n");
-    printf("[1] role dice\n"); //roll
-    printf("[2] use skill\n"); //skill
-    printf("[3] show buff\n"); //buff
-    printf("[4] inspect map\n"); //inspect
-    printf("[5] show position\n"); //map
-    printf("[6] undo\n"); //undo
-    printf("[7] end turn\n"); //endturn
-    printf("[0] exit game\n");
+    printf("[1] Roll Dice\n"); //roll
+    printf("[2] Use Skill\n"); //skill
+    printf("[3] Show Buff\n"); //buff
+    printf("[4] Inspect Map\n"); //inspect
+    printf("[5] Show Position\n"); //map
+    printf("[6] Undo\n"); //undo
+    printf("[7] End Turn\n"); //endturn
+    printf("[0] Exit Game\n");
 }
 
 void GameView(int opsi) {
@@ -40,20 +63,23 @@ void GameView(int opsi) {
         LoadGame();
     }
     setConfigFile();
+    printf("\nLoading configuration"); loading(3);
     loadConfig();
 
     displayGameRule();
     // click enter to continue type of shit
-    printf("\n Let's Start The Game!\n");
-    displayMap();
+    printf("\nLet's Start The Game!\n");
+    loading(3);
+    clear();
+    displayMap(); printf("\n");
     StartGame();
     ExitGame();
 }
 
 void NewGame() {
-    printf("Starting game...\n");
-    printf("Hello new players!, welcome to Uler tenggi \n");
-    printf("How many are playing today (minimum 2, max 4) ? : ");
+    printf("Starting game"); loading(3);
+    printf("Hi, Welcome to MOBITANGGA!!\n");
+    printf("How many players are playing today (minimum 2, maximum 4) ? : ");
     scanf("%d", &playersPlaying);
     //Setup how many players are playing
     if (playersPlaying < 2 || playersPlaying > 4) {
@@ -62,9 +88,8 @@ void NewGame() {
     } else {
         for (int i = 0; i < playersPlaying; i++) {
             player temp;
-            printf("Player %d name : ",i+1);
+            printf("\nPlayer %d name : ",i+1);
             setPlayer(&temp);
-            printf("\n");
             data.players[i] = temp;
         }
     }
@@ -90,51 +115,63 @@ void LoadGame() {
 
 // THE GAME
 void StartGame() {
-    int round = 1;
+    int round = 0;
     int opsi = -9;
     // boolean isRedo = false;
     // stack rondenya
     Ronde rounde;
     //
     CreateRondeEmpty(&rounde);
-    data.rondeKeberapa = 1;
-    PushRonde(&rounde,data);
+    data.rondeKeberapa = round;
+    round++;
+    PushRonde(&rounde, data);
     boolean exitGame = false;
-    boolean didRoleDice = false;
-    boolean isMoved = false;
-    boolean isEndTurn = false;
+    
     //Loop per ronde
-
-    //sistem undo jalan, do not touch
+    clear();
     while (!isEndGame) {
+        //clear();
         data = CurrRonde(rounde);
-        printf("Round %d\n",round);
         data.rondeKeberapa = round;
-        for (int i = 0; i < playersPlaying; i++) {
-            //clear screen
+        boolean isUndo = false;
+        boolean isEndRound = false;
+        int i = 0;
+        while (!isEndRound) {
+        //for (int i = 0; i < playersPlaying; i++) {
+            //clear();
+            printf("ROUND %d =========================\n", data.rondeKeberapa);
+            printf("It's %s turn! \n",data.players[i].name);
+            //Generate random skill
+            insertSkill(&data.players[i].skills, getRandomSkill());
+            //Show player posiiton in map
+            printf("Players current position :\n");
+            for (int j = 0; j < playersPlaying; j++) {
+                printf("%d. %s : ", j+1, data.players[j].name);
+                showPlayerPosition(data.players[j].position);
+            }
+            //Loop untill player choose end turn
+            boolean didRoleDice = false;
+            boolean isMoved = false;
+            boolean isEndTurn = false;
             while (!isEndTurn) { 
-                printf("It's %s turn! \n",CurrRonde(rounde).players[i].name);
-                //Generate random skill
-                insertSkill(&data.players[i].skills, getRandomSkill());
-                //Show player posiiton in map
-                for (int j = 0; j < playersPlaying; j++) {
-                    printf("%d. %s : ", j+1, data.players[j].name);
-                    showPlayerPosition(data.players[j].position);
-                }
                 //Show player command
                 showPlayerCommand();
                 printf("Select your move : ");
                 opsi = playerOption();
                 if (opsi == 1) {
-                    int positionInitial = data.players[i].position; 
-                    playerRollDice(&data.players[i],maxDiceRole);
-                    didRoleDice = true;
-                    int positionFinal = data.players[i].position;
-                    isMoved = positionInitial != positionFinal; 
+                    if (isMoved) {
+                        printf("Player can't roll dice again!\n");
+                    } else {
+                        int positionInitial = data.players[i].position; 
+                        playerRollDice(&data.players[i],maxDiceRole);
+                        didRoleDice = true;
+                        int positionFinal = data.players[i].position;
+                        isMoved = positionInitial != positionFinal; 
+                    }
                 }
                 else if (opsi == 2) {
                     if (isMoved) {
-                        printf("Player can't use skill, already role dice!\n");
+                        printf("Player can't use skill, already roll dice!\n");
                     } else {
                         playerUseSkill(i, playersPlaying);
                     }
@@ -149,12 +186,14 @@ void StartGame() {
                     inspectMap(point);
                 }
                 else if (opsi == 5) {
-                    for (int j = 0; j < playersPlaying; i++) {
+                    printf("Players current position :\n");
+                    for (int j = 0; j < playersPlaying; j++) {
+                        printf("%d. %s : ", j+1, data.players[j].name);
                         showPlayerPosition(data.players[j].position);
                     }
                 }
                 else if (opsi == 6) {
-                    if (data.rondeKeberapa == 1 || data.rondeKeberapa == 2){
+                    /*if (data.rondeKeberapa == 1 || data.rondeKeberapa == 2){
                         printf("Starting game state at end of round 1 \n");
                         // redo the whole thing
                         // isRedo = true;
@@ -163,7 +202,32 @@ void StartGame() {
                     } else {
                         PopRonde(&rounde,&data);
                         data = CurrRonde(rounde);
+                    }*/
+                    // undo
+                    printf("checkpoint undo 1\n");
+                    isUndo = true;
+                    int r = data.rondeKeberapa;
+                    while (r > 1) {
+                        printf("Current round is %d.\n", r);
+                        printf("Game will start at end of round %d.\n", r-1);
+                        printf("Type 1 if player want to undo again.\n");
+                        printf("Type 0 if not.\n");
+                        printf("Input : ");
+                        int selection = playerOption();
+                        if (selection == 1) {
+                            PopRonde(&rounde, &datadel);
+                            r -= 1;
+                        } else if (selection == 0) {
+                            break;
+                        }
                     }
+                    if (r == 1) {
+                        printf("Current round is %d.\n", r);
+                        printf("Game will start at end of round %d.\n", r-1);
+                    }
+                    isEndTurn = true;
+                    isEndRound = true;
+                    loading(3);
                 } else if (opsi == 7) {
                     // end turn
                     if (isMoved) {
@@ -183,26 +247,30 @@ void StartGame() {
                     isEndTurn = true;
                 }
             }
-
-            PushRonde(&rounde,data);
-            if (exitGame) { 
-                break ;
-                }
-            didRoleDice = false;
-            isEndGame = checkIsEndGame(CurrRonde(rounde).players[i].position);
+            printf("checkpoint end turn\n");
+            if (exitGame) break;
+            isEndGame = checkIsEndGame(data.players[i].position);
+            if (isEndGame) break;
+            i++;
+            if (i >= playersPlaying) isEndRound = true;
+            //PushRonde(&rounde, data);
+            //didRoleDice = false;
             // if (isEndGame) { 
             //     printf("end game %d",data.players[i].position);
             // } else {
             //     printf("not end ganme %d",data.players[i].position);
             // }
-            if (isEndGame) break;
         }
         // redo game
-       // if (isRedo) StartGame();
+        // if (isRedo) StartGame();
 
         // end game
-        if (exitGame) { break ;}
-        round++;
+        printf("checkpoint end round\n");
+        if (!isUndo) {
+            PushRonde(&rounde, data);
+            round++;
+        }
+        if (exitGame) break;
     }
     free(rounde.TOP);
 }

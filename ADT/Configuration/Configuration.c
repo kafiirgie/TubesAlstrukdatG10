@@ -10,10 +10,9 @@ int converter(char pep){
 }
 
 void setConfigFile(){
-    printf("Remember to add .txt in the end, user! \n");
+    printf("\nRemember to add .txt in the end, user! \n");
     printf("Configuration file name : ");
     scanf("%s", fileName);
-    printf("\nLoading configuration...\n");
 }
 
 void loadConfig() {
@@ -72,7 +71,7 @@ void setMap(Kata mapConfig) {
 }
 
 void displayMap() {
-    printf("Game map :\n");
+    printf("\nGAME MAP ========================\n");
     printf("%s\n",map);
 }
 
@@ -85,7 +84,7 @@ void inspectMap(int point) {
         for (int i = 0; i < teleportLenght; i++){
             if (point+1 == teleporters[i].inPoint) {
                 foundtp = true;
-                printf("There is teleporter from : %d to : %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
+                printf("There is teleporter from %d to %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
             }
         }
         if(!foundtp) {

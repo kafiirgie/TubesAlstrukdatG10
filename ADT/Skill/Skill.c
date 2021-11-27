@@ -95,6 +95,7 @@ void printSkill(skill LS) {
     if (IsEmpty(LS)) {
         printf("Player has no skills\n");
     } else {
+        printf("Player skills :\n");
         P = First(LS);
         do {
             switch (Info(P)) {

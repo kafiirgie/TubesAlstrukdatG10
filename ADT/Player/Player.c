@@ -101,6 +101,7 @@ void runTeleport(player *thePlayer) {
         if (thePlayer->position+1 == teleporters[i].inPoint) {
             thePlayer->position = teleporters[i].outPoint-1;
             printf("Teleporting %s from : %d to : %d.\n", thePlayer->name, teleporters[i].inPoint, teleporters[i].outPoint);
+            break;
         }
     }
 }
@@ -138,22 +139,26 @@ void resetPlayerBuff(player *thePlayer) {
 }
 
 void showPlayerBuff(player *thePlayer) {
-    int i = 1;
-    if (thePlayer->buff[0]) {
-        printf("%d. Imunitas Telport", i);
-        i++;
-    }
-    if (thePlayer->buff[1]) {
-        printf("%d. Cermin Pengganda", i);
-        i++;
-    }
-    if (thePlayer->buff[2]) {
-        printf("%d. Senter Pembesar Hoki", i);
-        i++;
-    }
-    if (thePlayer->buff[3]) {
-        printf("%d. Senter Pengecil Hoki", i);
-        i++;
+    if (!thePlayer->buff[0] && !thePlayer->buff[1] && !thePlayer->buff[2] && !thePlayer->buff[3]) {
+        printf("Player don't have any buff yet.\n");
+    } else {
+        int i = 1;
+        if (thePlayer->buff[0]) {
+            printf("%d. Imunitas Telport\n", i);
+            i++;
+        }
+        if (thePlayer->buff[1]) {
+            printf("%d. Cermin Pengganda\n", i);
+            i++;
+        }
+        if (thePlayer->buff[2]) {
+            printf("%d. Senter Pembesar Hoki\n", i);
+            i++;
+        }
+        if (thePlayer->buff[3]) {
+            printf("%d. Senter Pengecil Hoki\n", i);
+            i++;
+        }    
     }
 }
 
