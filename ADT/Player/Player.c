@@ -52,8 +52,12 @@ void playerRollDice(player *thePlayer, int maxDice) {
         if (selection == 1) {
             thePlayer->position += move;
         } 
-        if (selection == 2) {
+        else if (selection == 2) {
             thePlayer->position -= move;
+        }
+        else {
+            printf("Wrong input, will automagically move forward.\n");
+            thePlayer->position += move;            
         }
     } else if (isPlayerCanMoveForward && !isPlayerCanMoveBackward) {
         printf("%s can only move forward %d step.\n", thePlayer->name, move);
