@@ -1,6 +1,6 @@
-# Telport!
+# MOBITANGGA
 ## About
-Teleport! adalah sebuah permainan berbasis pada ular tangga yang dibuat menggunakan bahasa C sebagai syarat kelulusan pada mata kuliah Algoritma dan Struktur Data
+Mobitangga adalah sebuah permainan berbasis pada ular tangga yang dibuat menggunakan bahasa C sebagai syarat kelulusan pada mata kuliah Algoritma dan Struktur Data
 ## Mechanics
 ## How To Run
   1. Buka Terminal jika anda menggunakan Unix based dan Command Line jika menggunakan Window based system.

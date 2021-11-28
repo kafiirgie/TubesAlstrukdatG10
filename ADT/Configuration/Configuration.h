@@ -1,5 +1,5 @@
 // File: Configuration.h
-// Define map, teleport, maxDiceRole 
+// Define map (arr of char), teleport, arr of teleport, maxDiceRole 
 
 #ifndef Configuration_h
 #define Configuration_h
@@ -21,11 +21,11 @@ typedef struct {
 
 teleport *teleporters;
 
-void loadConfig();
-// Load the config
-
 void setConfigFile();
 // Set the config name
+
+void loadConfig();
+// Load the config
 
 void setMapLenght(int lenght);
 // Set the map lenght

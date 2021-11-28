@@ -1,6 +1,8 @@
+/* Driver for ListLinier */
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListLinier.h"
+#include "../Skill/ListLinier.h"
 
 
 int main(){
@@ -31,7 +33,7 @@ int main(){
     q = Search(L, 5);
     printf("Nilai ditemukan, nilai yang dicari = %d\n", Info(p));
     if (q == Nil) {
-        printf("Nilai tidak ditemukan\n");
+        printf("Nilai tidak ditemukan, nilai yang dicari = %d\n", 5);
     }
     printf("\n");
     

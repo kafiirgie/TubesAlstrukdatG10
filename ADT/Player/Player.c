@@ -52,17 +52,21 @@ void playerRollDice(player *thePlayer, int maxDice) {
         if (selection == 1) {
             thePlayer->position += move;
         } 
-        if (selection == 2) {
+        else if (selection == 2) {
             thePlayer->position -= move;
         }
+        else {
+            printf("Wrong input, will automagically move forward.\n");
+            thePlayer->position += move;            
+        }
     } else if (isPlayerCanMoveForward && !isPlayerCanMoveBackward) {
-        printf("%s can only move forward %d step.\n", thePlayer->name, move);
+        printf("%s can only move forward %d steps.\n", thePlayer->name, move);
         thePlayer->position += move;
     } else if (!isPlayerCanMoveForward && isPlayerCanMoveBackward) {
-        printf("%s can only move backward %d step.\n", thePlayer->name, move);
+        printf("%s can only move backward %d steps.\n", thePlayer->name, move);
         thePlayer->position -= move;
     } else {
-        printf("%s can't move.\n", thePlayer->name);
+        printf("%s can't move %d steps.\n", thePlayer->name, move);
     }
     printf("%s current position is on : %d.\n", thePlayer->name, thePlayer->position+1);
     // Check teleporter

@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "../../ADT/Configuration/Configuration.h"
-#include "../../ADT/Progress/Progress.h"
 #include "../../ADT/MesinKarKat/mesin_kata.h"
 #include "../../ADT/Round/Round.h"
 #include <stdio.h>
@@ -79,19 +78,19 @@ void GameView(int opsi) {
 void NewGame() {
     printf("Starting game"); loading(3);
     printf("Hi, Welcome to MOBITANGGA!!\n");
-    printf("How many players are playing today (minimum 2, maximum 4) ? : ");
-    scanf("%d", &playersPlaying);
     //Setup how many players are playing
-    if (playersPlaying < 2 || playersPlaying > 4) {
-        printf("Looks like you put the wrong number, re-starting the game... \n");
-        NewGame(); //got infinite loop!!
-    } else {
-        for (int i = 0; i < playersPlaying; i++) {
-            player temp;
-            printf("\nPlayer %d name : ",i+1);
-            setPlayer(&temp);
-            data.players[i] = temp;
+    do {
+        printf("How many players are playing today (minimum 2, maximum 4) ? : ");
+        scanf("%d", &playersPlaying);
+        if (playersPlaying < 2 || playersPlaying > 4) {
+            printf("Looks like you put the wrong number, please re-enter the number of players. \n");
         }
+    } while (playersPlaying < 2 || playersPlaying > 4);
+    for (int i = 0; i < playersPlaying; i++) {
+        player temp;
+        printf("\nPlayer %d name : ",i+1);
+        setPlayer(&temp);
+        data.players[i] = temp;
     }
 }
 
@@ -316,40 +315,6 @@ void displayRank() {
        printf("Rank #%d : %s \n",i+1,data.players[i].name);
     }
 }
-
-/*void showPlayerPosition(int position) {
-    for (int i = 0; i < mapLenght; i++) {
-        if (i == position) {
-            printf("%c",'*');
-        } else {
-            printf("%c",map[i]);
-        }
-    }
-    printf(" %d \n", position+1);
-}*/
-
-/*void displayMap() {
-    printf("Game map :\n");
-    printf("%s\n",map);
-}
-
-void inspectMap(int point) {
-    point -= 1;
-    if (map[point] == '#') {
-        printf("Player can't move to this point\n");
-    } else if (map[point] == '.') {
-        boolean foundtp = false;
-        for (int i = 0; i < teleportLenght; i++){
-            if (point+1 == teleporters[i].inPoint) {
-                foundtp = true;
-                printf("There is teleporter from : %d to : %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
-            }
-        }
-        if(!foundtp) {
-            printf("There is no teleporter in : %d \n", point+1);
-        }
-    }
-}*/
 
 void playerUseSkill(int idPlayer, int countPlayersPlaying) {
     printSkill(data.players[idPlayer].skills);
