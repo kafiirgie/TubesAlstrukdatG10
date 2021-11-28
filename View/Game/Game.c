@@ -63,18 +63,19 @@ void GameView(int opsi) {
         setConfigFile();
         printf("\nLoading configuration"); loading(3);
         loadConfig();
-
-        printf("\nLet's Start The Game!\n");
-        loading(3);
+        delay(1.5);
         clear();
-
         displayMap();
         printf("\n");
         
         StartGame();
         
         ExitGame();
+    } else {
+        printf("Oops, looks like you put invalid input, restarting the game");
+        loading(3);
     }
+    
 }
 
 void NewGame() {
