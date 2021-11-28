@@ -11,12 +11,6 @@ void setPlayer(player *thePlayer) {
     scanf("%s", thePlayer->name);
     //set player skills
     createEmptySkill(&thePlayer->skills);
-    //skill playerskills;
-    //int temp;
-    //createEmptySkill(&playerskills);
-    //temp = getRandomSkill();
-    //insertSkill(&playerskills, temp);
-    //thePlayer->skills = playerskills;
     //set player buff
     thePlayer->buff[0] = false; //Buff Imunitas Teleport
     thePlayer->buff[1] = false; //Buff Cermin Pengganda
@@ -102,7 +96,7 @@ void playerTeleport(player *thePlayer) {
 }
 
 void runTeleport(player *thePlayer) {
-    for (int i = 0; i < teleportLenght; i++){
+    for (int i = 0; i < teleportLength; i++){
         if (thePlayer->position+1 == teleporters[i].inPoint) {
             thePlayer->position = teleporters[i].outPoint-1;
             printf("Teleporting %s from : %d to : %d.\n", thePlayer->name, teleporters[i].inPoint, teleporters[i].outPoint);
@@ -113,7 +107,7 @@ void runTeleport(player *thePlayer) {
 
 boolean isCanTeleport(player *thePlayer) {
     boolean val = false;
-    for (int i = 0; i < teleportLenght; i++){
+    for (int i = 0; i < teleportLength; i++){
         if (thePlayer->position+1 == teleporters[i].inPoint) {
             val = true;
             break;
@@ -122,9 +116,9 @@ boolean isCanTeleport(player *thePlayer) {
     return val;
 }
 
-boolean isPlayerCanMove(int change, int position, boolean isUpward) {
-    if (isUpward) {
-        return map[position+change] != '#' && (position+change < mapLenght);
+boolean isPlayerCanMove(int change, int position, boolean isForward) {
+    if (isForward) {
+        return map[position+change] != '#' && (position+change < mapLength);
     } else {
         return map[position-change] != '#' && (position-change >= 0);
     }
@@ -144,8 +138,10 @@ void resetPlayerBuff(player *thePlayer) {
 }
 
 void showPlayerBuff(player *thePlayer) {
+    //Player buff is empty
     if (!thePlayer->buff[0] && !thePlayer->buff[1] && !thePlayer->buff[2] && !thePlayer->buff[3]) {
         printf("Player don't have any buff yet.\n");
+    //Player has at least 1 buff
     } else {
         int i = 1;
         if (thePlayer->buff[0]) {
@@ -168,7 +164,7 @@ void showPlayerBuff(player *thePlayer) {
 }
 
 void showPlayerPosition(int position) {
-    for (int i = 0; i < mapLenght; i++) {
+    for (int i = 0; i < mapLength; i++) {
         if (i == position) {
             printf("%c",'*');
         } else {

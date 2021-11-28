@@ -1,7 +1,9 @@
+// File: Round.h
+// Define round adt (use stack implementation)
+
 #ifndef Round_h
 #define Round_h
 
-// typedef int addressRonde; 
 #include "../Player/Player.h"
 
 typedef struct {
@@ -54,9 +56,6 @@ void PopRonde (Ronde * S, roundData * X);
 /* F.S. X adalah nilai elemen TOP yang lama, */
 /*      elemen TOP yang lama dideAlokasiRonde */
 /* Pada dasarnya adalah operasi Delete First pada list linier */
-
-
-
 
 
 #endif

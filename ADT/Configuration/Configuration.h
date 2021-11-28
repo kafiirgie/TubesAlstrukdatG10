@@ -11,8 +11,8 @@
 
 extern int maxDiceRole;
 extern char map[255];
-extern int mapLenght;
-extern int teleportLenght;
+extern int mapLength;
+extern int teleportLength;
 
 typedef struct {
     int inPoint;
@@ -27,8 +27,8 @@ void setConfigFile();
 void loadConfig();
 // Load the config
 
-void setMapLenght(int lenght);
-// Set the map lenght
+void setMapLength(int length);
+// Set the map length
 
 void setMap(Kata mapConfig);
 // Set the map value
@@ -39,7 +39,7 @@ void displayMap(); //adt map
 void inspectMap(int point); //adt map
 // Check if there is a teleporter at that point
 
-void allocateTeleportersLenght(int lenght);
+void allocateTeleportersLength(int length);
 // Allocate memory for teleporters
 
 void freeTeleporters();

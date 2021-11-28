@@ -34,7 +34,7 @@ void runTeleport(player *thePlayer);
 boolean isCanTeleport(player *thePlayer);
 // Check is teleport eligible at that point
 
-boolean isPlayerCanMove(int change, int position, boolean isUpward);
+boolean isPlayerCanMove(int change, int position, boolean isForward);
 // Check future displacement
 
 int playerOption();

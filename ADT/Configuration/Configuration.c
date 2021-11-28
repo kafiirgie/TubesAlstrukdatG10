@@ -2,8 +2,8 @@
 
 int maxDiceRole = 0;
 char map[255];
-int mapLenght = 0;
-int teleportLenght = 0;
+int mapLength = 0;
+int teleportLength = 0;
 
 int converter(char pep){
     return pep - '0';
@@ -21,7 +21,7 @@ void loadConfig() {
     int index = 0;
     while (!EndKata) {
         if (line == 1) {
-            setMapLenght(atoi(CKata.TabKata));
+            setMapLength(atoi(CKata.TabKata));
         } 
         else if (line == 2) {
             setMap(CKata);
@@ -30,8 +30,8 @@ void loadConfig() {
             setMaxDiceRole(atoi(CKata.TabKata));
         }
         else if( line == 4) {
-            teleportLenght = atoi(CKata.TabKata);
-            allocateTeleportersLenght(teleportLenght);
+            teleportLength = atoi(CKata.TabKata);
+            allocateTeleportersLength(teleportLength);
         } else {
             int in = 0;
             int out = 0;
@@ -60,8 +60,8 @@ void loadConfig() {
     printf("Configuration has been loaded successfully\n");
 }
 
-void setMapLenght(int lenght) {
-    mapLenght = lenght;
+void setMapLength(int length) {
+    mapLength = length;
 }
 
 void setMap(Kata mapConfig) {
@@ -77,25 +77,28 @@ void displayMap() {
 
 void inspectMap(int point) {
     point -= 1;
+    //Petak terlarang
     if (map[point] == '#') {
         printf("Player can't move to this point\n");
     } else if (map[point] == '.') {
+        //Petak dengan teleporter
         boolean foundtp = false;
-        for (int i = 0; i < teleportLenght; i++){
+        for (int i = 0; i < teleportLength; i++){
             if (point+1 == teleporters[i].inPoint) {
                 foundtp = true;
                 printf("There is teleporter from %d to %d \n", teleporters[i].inPoint, teleporters[i].outPoint);
                 break;
             }
         }
+        //Petak kosong
         if(!foundtp) {
             printf("There is no teleporter in : %d \n", point+1);
         }
     }
 }
 
-void allocateTeleportersLenght(int lenght){
-    teleporters = calloc(lenght, sizeof(teleport));
+void allocateTeleportersLength(int length){
+    teleporters = calloc(length, sizeof(teleport));
 }
 
 void freeTeleporters(){

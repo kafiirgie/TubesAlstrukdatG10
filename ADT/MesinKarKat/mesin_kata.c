@@ -1,3 +1,6 @@
+/* File: mesin_kata.c */
+/* Implementasi Mesin Kata */
+
 #include "mesin_kata.h"
 #include <stdio.h>
 

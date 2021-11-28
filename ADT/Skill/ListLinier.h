@@ -1,3 +1,6 @@
+// File: ListLinier.h
+// Define list linier adt 
+
 #ifndef ListLinier_H
 #define ListLinier_H
 
