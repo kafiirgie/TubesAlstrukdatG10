@@ -15,14 +15,9 @@ void GameView(int opsi);
 
 void NewGame();
 
-void LoadGame();
-
 void StartGame();
 
 void ExitGame();
-
-void displayGameRule();
-// display game rule
 
 boolean checkIsEndGame(int position);
 //check if it's the end of the game
@@ -32,15 +27,6 @@ void rankPlayers();
 
 void displayRank();
 // display player rank
-
-//void showPlayerPosition(int position); //adt player
-// show the position of the player
-
-//void displayMap(); //adt map
-// display game map
-
-//void inspectMap(int point); //adt map
-// Check if there is a teleporter at that point
 
 void playerUseSkill(int idPlayer, int countPlayersPlaying);
 // Use skill
