@@ -42,6 +42,7 @@ void playerRollDice(player *thePlayer, int maxDice) {
     // Move player
     boolean isPlayerCanMoveForward = isPlayerCanMove(move,thePlayer->position,true);
     boolean isPlayerCanMoveBackward = isPlayerCanMove(move,thePlayer->position,false);
+    printf("%s Rolled %d\n",thePlayer->name, move);
     if (isPlayerCanMoveForward && isPlayerCanMoveBackward) {
         printf("%s can move forward %d step.\n", thePlayer->name, move);
         printf("%s can move backward %d step.\n", thePlayer->name, move);

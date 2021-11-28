@@ -165,7 +165,7 @@ void StartGame() {
                         playerRollDice(&data.players[i],maxDiceRole);
                         didRoleDice = true;
                         int positionFinal = data.players[i].position;
-                        isMoved = positionInitial != positionFinal; 
+                        isMoved = true; 
                     }
                 }
                 else if (opsi == 2) {
@@ -371,7 +371,8 @@ void useSkill1(int idPlayer) {
     }
 }
 void useSkill2(int idPlayer, int countPlayersPlaying) {
-    printf("You can move other players backward.\n");
+     int moveOpponent = getDiceValue(1, maxDiceRole);
+    printf("You can move player %d steps backward.\n", moveOpponent);
     printf("Players :\n");
     for (int i = 0; i < countPlayersPlaying; i++) {
         if (i != idPlayer) {
@@ -380,7 +381,6 @@ void useSkill2(int idPlayer, int countPlayersPlaying) {
     }
     printf("Select id Player : ");
     int idOpponent = playerOption()-1;
-    int moveOpponent = getDiceValue(1, maxDiceRole);
     if (isPlayerCanMove(moveOpponent, data.players[idOpponent].position, false)) {
         // Move opponent player backward
         data.players[idOpponent].position -= moveOpponent;
