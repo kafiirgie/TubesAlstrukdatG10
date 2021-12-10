@@ -198,6 +198,7 @@ void StartGame() {
                         if (selection == 1) {
                             PopRonde(&rounde, &datadel);
                             r -= 1;
+                            round -= 1;
                         } else if (selection == 0) {
                             break;
                         }
@@ -206,7 +207,6 @@ void StartGame() {
                         printf("Current round is %d.\n", r);
                         printf("Game will start at end of round %d.\n", r-1);
                     }
-                    data.rondeKeberapa = r;
                     isEndTurn = true;
                     isEndRound = true;
                     loading(3);
