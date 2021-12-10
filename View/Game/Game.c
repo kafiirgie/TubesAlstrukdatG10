@@ -206,6 +206,7 @@ void StartGame() {
                         printf("Current round is %d.\n", r);
                         printf("Game will start at end of round %d.\n", r-1);
                     }
+                    data.rondeKeberapa = r;
                     isEndTurn = true;
                     isEndRound = true;
                     loading(3);
